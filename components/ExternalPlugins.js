@@ -32,7 +32,6 @@ const ExternalPlugin = props => {
   const MUSIC_PLAYER = siteConfig('MUSIC_PLAYER')
   const NEST = siteConfig('NEST')
   const FLUTTERINGRIBBON = siteConfig('FLUTTERINGRIBBON')
-  const COMMENT_TWIKOO_COUNT_ENABLE = siteConfig('COMMENT_TWIKOO_COUNT_ENABLE')
   const RIBBON = siteConfig('RIBBON')
   const CUSTOM_RIGHT_CLICK_CONTEXT_MENU = siteConfig(
     'CUSTOM_RIGHT_CLICK_CONTEXT_MENU'
@@ -40,18 +39,9 @@ const ExternalPlugin = props => {
   const CAN_COPY = siteConfig('CAN_COPY')
   const WEB_WHIZ_ENABLED = siteConfig('WEB_WHIZ_ENABLED')
   const AD_WWADS_BLOCK_DETECT = siteConfig('AD_WWADS_BLOCK_DETECT')
-  const CHATBASE_ID = siteConfig('CHATBASE_ID')
-  const COMMENT_DAO_VOICE_ID = siteConfig('COMMENT_DAO_VOICE_ID')
-  const AD_WWADS_ID = siteConfig('AD_WWADS_ID')
-  const COMMENT_ARTALK_SERVER = siteConfig('COMMENT_ARTALK_SERVER')
-  const COMMENT_ARTALK_JS = siteConfig('COMMENT_ARTALK_JS')
-  const COMMENT_TIDIO_ID = siteConfig('COMMENT_TIDIO_ID')
-  const COMMENT_GITTER_ROOM = siteConfig('COMMENT_GITTER_ROOM')
   const ANALYTICS_BAIDU_ID = siteConfig('ANALYTICS_BAIDU_ID')
   const ANALYTICS_CNZZ_ID = siteConfig('ANALYTICS_CNZZ_ID')
   const ANALYTICS_GOOGLE_ID = siteConfig('ANALYTICS_GOOGLE_ID')
-  const MATOMO_HOST_URL = siteConfig('MATOMO_HOST_URL')
-  const MATOMO_SITE_ID = siteConfig('MATOMO_SITE_ID')
   const ANALYTICS_51LA_ID = siteConfig('ANALYTICS_51LA_ID')
   const ANALYTICS_51LA_CK = siteConfig('ANALYTICS_51LA_CK')
   const DIFY_CHATBOT_ENABLED = siteConfig('DIFY_CHATBOT_ENABLED')
@@ -127,7 +117,6 @@ const ExternalPlugin = props => {
     <>
       {/* 全局样式嵌入 */}
       <GlobalStyle />
-      {MOUSE_FOLLOW && <MouseFollow />}
       {THEME_SWITCH && <ThemeSwitch />}
       {DEBUG && <DebugPanel />}
       {ANALYTICS_ACKEE_TRACKER && <Ackee />}
@@ -141,7 +130,6 @@ const ExternalPlugin = props => {
       {MUSIC_PLAYER && <MusicPlayer />}
       {NEST && <Nest />}
       {FLUTTERINGRIBBON && <FlutteringRibbon />}
-      {COMMENT_TWIKOO_COUNT_ENABLE && <TwikooCommentCounter {...props} />}
       {RIBBON && <Ribbon />}
       {DIFY_CHATBOT_ENABLED && <DifyChatbot />}
       {CUSTOM_RIGHT_CLICK_CONTEXT_MENU && <CustomContextMenu {...props} />}
@@ -149,11 +137,8 @@ const ExternalPlugin = props => {
       {WEB_WHIZ_ENABLED && <WebWhiz />}
       {AD_WWADS_BLOCK_DETECT && <AdBlockDetect />}
       {TIANLI_KEY && <TianliGPT />}
-      <VConsole />
       {ENABLE_NPROGRSS && <LoadingProgress />}
-      <AosAnimation />
       {ANALYTICS_51LA_ID && ANALYTICS_51LA_CK && <LA51 />}
-      {COZE_BOT_ID && <Coze />}
 
       {ANALYTICS_51LA_ID && ANALYTICS_51LA_CK && (
         <>
@@ -163,26 +148,6 @@ const ExternalPlugin = props => {
                     LA.init({id:"${ANALYTICS_51LA_ID}",ck:"${ANALYTICS_51LA_CK}",hashMode:true,autoTrack:true})
                     `
             }} /> */}
-        </>
-      )}
-
-      {CHATBASE_ID && (
-        <>
-          <script
-            id={CHATBASE_ID}
-            src='https://www.chatbase.co/embed.min.js'
-            defer
-          />
-          <script
-            async
-            dangerouslySetInnerHTML={{
-              __html: `
-                    window.chatbaseConfig = {
-                        chatbotId: "${CHATBASE_ID}",
-                        }
-                    `
-            }}
-          />
         </>
       )}
 
@@ -207,89 +172,6 @@ const ExternalPlugin = props => {
                   }
                 })(window, document, "clarity", "script", "${CLARITY_ID}");
                 `
-            }}
-          />
-        </>
-      )}
-
-      {COMMENT_DAO_VOICE_ID && (
-        <>
-          {/* DaoVoice 反馈 */}
-          <script
-            async
-            dangerouslySetInnerHTML={{
-              __html: `
-                (function(i, s, o, g, r, a, m) {
-                  i["DaoVoiceObject"] = r;
-                  i[r] = i[r] || function() {
-                    (i[r].q = i[r].q || []).push(arguments);
-                  };
-                  i[r].l = 1 * new Date();
-                  a = s.createElement(o);
-                  m = s.getElementsByTagName(o)[0];
-                  a.async = 1;
-                  a.src = g;
-                  a.charset = "utf-8";
-                  if (m && m.parentNode) {
-                    m.parentNode.insertBefore(a, m);
-                  } else {
-                    s.head.appendChild(a);
-                  }
-                })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/daf1a94b.js", "daovoice")
-                `
-            }}
-          />
-          <script
-            async
-            dangerouslySetInnerHTML={{
-              __html: `
-             daovoice('init', {
-                app_id: "${COMMENT_DAO_VOICE_ID}"
-              });
-              daovoice('update');
-              `
-            }}
-          />
-        </>
-      )}
-
-      {AD_WWADS_ID && (
-        <>
-          <Head>
-            {/* 提前连接到广告服务器 */}
-            <link rel='preconnect' href='https://cdn.wwads.cn' />
-          </Head>
-          <ExternalScript
-            type='text/javascript'
-            src='https://cdn.wwads.cn/js/makemoney.js'
-          />
-        </>
-      )}
-
-      {/* {COMMENT_TWIKOO_ENV_ID && <script defer src={COMMENT_TWIKOO_CDN_URL} />} */}
-
-      {COMMENT_ARTALK_SERVER && <script defer src={COMMENT_ARTALK_JS} />}
-
-      {COMMENT_TIDIO_ID && (
-        <script async src={`//code.tidio.co/${COMMENT_TIDIO_ID}.js`} />
-      )}
-
-      {/* gitter聊天室 */}
-      {COMMENT_GITTER_ROOM && (
-        <>
-          <script
-            src='https://sidecar.gitter.im/dist/sidecar.v1.js'
-            async
-            defer
-          />
-          <script
-            async
-            dangerouslySetInnerHTML={{
-              __html: `
-            ((window.gitter = {}).chat = {}).options = {
-              room: '${COMMENT_GITTER_ROOM}'
-            };
-            `
             }}
           />
         </>
@@ -348,44 +230,12 @@ const ExternalPlugin = props => {
         </>
       )}
 
-      {/* Matomo 统计 */}
-      {MATOMO_HOST_URL && MATOMO_SITE_ID && (
-        <script
-          async
-          dangerouslySetInnerHTML={{
-            __html: `
-              var _paq = window._paq = window._paq || [];
-              _paq.push(['trackPageView']);
-              _paq.push(['enableLinkTracking']);
-              (function() {
-                var u="//${MATOMO_HOST_URL}/";
-                _paq.push(['setTrackerUrl', u+'matomo.php']);
-                _paq.push(['setSiteId', '${MATOMO_SITE_ID}']);
-                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-              })();
-            `
-          }}
-        />
-      )}
     </>
   )
 }
 
-const TwikooCommentCounter = dynamic(
-  () => import('@/components/TwikooCommentCounter'),
-  { ssr: false }
-)
-const DebugPanel = dynamic(() => import('@/components/DebugPanel'), {
-  ssr: false
-})
-const ThemeSwitch = dynamic(() => import('@/components/ThemeSwitch'), {
-  ssr: false
-})
+
 const Fireworks = dynamic(() => import('@/components/Fireworks'), {
-  ssr: false
-})
-const MouseFollow = dynamic(() => import('@/components/MouseFollow'), {
   ssr: false
 })
 const Nest = dynamic(() => import('@/components/Nest'), { ssr: false })
@@ -393,14 +243,6 @@ const FlutteringRibbon = dynamic(
   () => import('@/components/FlutteringRibbon'),
   { ssr: false }
 )
-const Ribbon = dynamic(() => import('@/components/Ribbon'), { ssr: false })
-const Sakura = dynamic(() => import('@/components/Sakura'), { ssr: false })
-const StarrySky = dynamic(() => import('@/components/StarrySky'), {
-  ssr: false
-})
-const DifyChatbot = dynamic(() => import('@/components/DifyChatbot'), {
-  ssr: false
-})
 const Analytics = dynamic(
   () =>
     import('@vercel/analytics/react').then(async m => {
@@ -408,14 +250,6 @@ const Analytics = dynamic(
     }),
   { ssr: false }
 )
-const MusicPlayer = dynamic(() => import('@/components/Player'), { ssr: false })
-const Ackee = dynamic(() => import('@/components/Ackee'), { ssr: false })
-const Gtag = dynamic(() => import('@/components/Gtag'), { ssr: false })
-const Busuanzi = dynamic(() => import('@/components/Busuanzi'), { ssr: false })
-const Messenger = dynamic(() => import('@/components/FacebookMessenger'), {
-  ssr: false
-})
-const VConsole = dynamic(() => import('@/components/VConsole'), { ssr: false })
 const CustomContextMenu = dynamic(
   () => import('@/components/CustomContextMenu'),
   { ssr: false }
@@ -423,24 +257,9 @@ const CustomContextMenu = dynamic(
 const DisableCopy = dynamic(() => import('@/components/DisableCopy'), {
   ssr: false
 })
-const AdBlockDetect = dynamic(() => import('@/components/AdBlockDetect'), {
-  ssr: false
-})
 const LoadingProgress = dynamic(() => import('@/components/LoadingProgress'), {
   ssr: false
 })
-const AosAnimation = dynamic(() => import('@/components/AOSAnimation'), {
-  ssr: false
-})
 
-const Coze = dynamic(() => import('@/components/Coze'), {
-  ssr: false
-})
-const LA51 = dynamic(() => import('@/components/LA51'), {
-  ssr: false
-})
-const TianliGPT = dynamic(() => import('@/components/TianliGPT'), {
-  ssr: false
-})
 
 export default ExternalPlugin

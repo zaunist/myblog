@@ -1,4 +1,3 @@
-import Live2D from '@/components/Live2D'
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import dynamic from 'next/dynamic'
@@ -100,7 +99,6 @@ export default function SideRight(props) {
 
         {rightAreaSlot}
         <FaceBookPage />
-        <Live2D />
       </div>
     </div>
   )

@@ -1,6 +1,5 @@
 import BLOG from '@/blog.config'
 import useNotification from '@/components/Notification'
-import OpenWrite from '@/components/OpenWrite'
 import { siteConfig } from '@/lib/config'
 import { getGlobalData, getPost } from '@/lib/db/getSiteData'
 import { useGlobal } from '@/lib/global'
@@ -13,7 +12,7 @@ import { useRouter } from 'next/router'
 import { idToUuid } from 'notion-utils'
 import { useEffect, useState } from 'react'
 
-/**
+/** 
  * 根据notion的slug访问页面
  * 只解析一级目录例如 /about
  * @param {*} props
@@ -26,7 +25,7 @@ const Slug = props => {
 
   // 文章锁🔐
   const [lock, setLock] = useState(post?.password && post?.password !== '')
-  const { showNotification, Notification } = useNotification()
+  const { showNotification } = useNotification()
 
   /**
    * 验证文章密码
@@ -87,10 +86,6 @@ const Slug = props => {
     <>
       {/* 文章布局 */}
       <DynamicLayout theme={theme} layoutName='LayoutSlug' {...props} />
-      {/* 解锁密码提示框 */}
-      {post?.password && post?.password !== '' && !lock && <Notification />}
-      {/* 导流工具 */}
-      <OpenWrite />
     </>
   )
 }

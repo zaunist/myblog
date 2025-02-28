@@ -1,6 +1,5 @@
 import NotionIcon from '@/components/NotionIcon'
 import NotionPage from '@/components/NotionPage'
-import TwikooCommentCount from '@/components/TwikooCommentCount'
 import { siteConfig } from '@/lib/config'
 import { formatDateFmt } from '@/lib/utils/formatDate'
 import Link from 'next/link'
@@ -50,11 +49,6 @@ export const BlogPostCardInfo = ({
                 <i className='mr-1 far fa-folder' />
                 {post.category}
               </Link>
-
-              <TwikooCommentCount
-                className='text-sm hover:text-indigo-700 dark:hover:text-indigo-400'
-                post={post}
-              />
             </div>
           )}
         </header>
