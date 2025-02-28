@@ -16,7 +16,7 @@ module.exports = {
   // 网站图片
   IMG_LAZY_LOAD_PLACEHOLDER:
     process.env.NEXT_PUBLIC_IMG_LAZY_LOAD_PLACEHOLDER ||
-    'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==', // 懒加载占位图片地址，支持base64或url
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA6wAAAOsAQMAAAB09akHAAAABlBMVEUDAwUGBQe0E1zXAAACZUlEQVR42u3ZPUosURCA0dpBL8l9PBjeMl7wAvejgZEYiatQQxcgatigaBkM2PiDM47dXX31fGHTxaGSy4UbkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkqR1uQ6LxS6YzY29/PfhHBaLXQz7+jsWi108G7k5bJtsYrFvwmKx7bGJxWLbYxOLxS6R3TCHxWLbYxOLxY7Mbua6ndkhLBY7L5tYLLYBdsewWCwWi8VisVjs+wKLxbbHRmCxWCwWix2djei2vZtnJhaLrWe3mxg4LBY7Hps79rVJLBaLxWKxu4XFYttjI7BY7DdYpxQWi8VisVgsFovFYrGzhMVisVgsFovFYrFYLBaLxWKx2IbZzIxuHhSLxY7HZmKxWCwWi22bHcJisVgsFovFYrFYLHZadg+LxS6d9UKOxWKxWCwWi8VisVgsFovFYrFYLBaLxWKxv5aNTCwWi8VisVgstgF2CIvFYrFYLBaLxWKxWCwWi61gI7pctzehG1gsFovFYrFYLBaLxWKxWCwWi8VisVgsFovdjp2WxGKxTbGBxWInYBOLxTbFDmGxWCwWi8VisVgsFovFYrEF7EtYLBaLxWKnZwOLxbbHduOqWCx2BjZGVbFYbGtsYLHY1tjAYrEzsd1oKhaLnYkdeCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8WWs0PfMLHYhtmrH7FtRIfFYrFYLBaLnZa9LGHvz0rYu+sS9vhvCZt9CXtetO1JBft0cFXB9v2/AvZmtarY9uHupGLbyz+3Fds+9v/PCtjr1UUWsE+3p0cF7OFxv/85+wxrvYiy4OSysAAAAABJRU5ErkJggg==', // 懒加载占位图片地址，支持base64或url
   IMG_URL_TYPE: process.env.NEXT_PUBLIC_IMG_TYPE || 'Notion', // 此配置已失效，请勿使用；AMAZON方案不再支持，仅支持Notion方案。 ['Notion','AMAZON'] 站点图片前缀 默认 Notion:(https://notion.so/images/xx) ， AMAZON(https://s3.us-west-2.amazonaws.com/xxx)
   IMG_SHADOW: process.env.NEXT_PUBLIC_IMG_SHADOW || false, // 文章图片是否自动添加阴影
   IMG_COMPRESS_WIDTH: process.env.NEXT_PUBLIC_IMG_COMPRESS_WIDTH || 800 // Notion图片压缩宽度
