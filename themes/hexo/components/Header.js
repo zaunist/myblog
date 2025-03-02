@@ -65,15 +65,15 @@ const Header = props => {
       // const textWhite = header && scrollInHeader
 
       if (scrollInHeader) {
-        nav && nav.classList.replace('bg-white', 'bg-none')
+        nav && nav.classList.replace('bg-gray-180', 'bg-none')
         nav && nav.classList.replace('border', 'border-transparent')
         nav && nav.classList.replace('drop-shadow-md', 'shadow-none')
-        nav && nav.classList.replace('dark:bg-hexo-black-gray', 'transparent')
+        nav && nav.classList.replace('dark:bg-gray-800', 'transparent')
       } else {
-        nav && nav.classList.replace('bg-none', 'bg-white')
+        nav && nav.classList.replace('bg-none', 'bg-gray-180')
         nav && nav.classList.replace('border-transparent', 'border')
         nav && nav.classList.replace('shadow-none', 'drop-shadow-md')
-        nav && nav.classList.replace('transparent', 'dark:bg-hexo-black-gray')
+        nav && nav.classList.replace('transparent', 'dark:bg-gray-800')
       }
 
       if (scrollInHeader) {
@@ -82,17 +82,11 @@ const Header = props => {
         nav && nav.classList.replace('text-white', 'text-black')
       }
 
-      // 导航栏不在头图里，且页面向下滚动一定程度 隐藏导航栏
-      const showNav =
-        scrollS <= windowTop ||
-        scrollS < 5 ||
-        (header && scrollS <= header.clientHeight + 100)
-      if (!showNav) {
-        nav && nav.classList.replace('top-0', '-top-20')
-        windowTop = scrollS
+      // 修改导航栏滚动行为：滚动时轻微缩小而不是隐藏
+      if (scrollS > 100) {
+        nav && nav.classList.add('nav-shrink')
       } else {
-        nav && nav.classList.replace('-top-20', 'top-0')
-        windowTop = scrollS
+        nav && nav.classList.remove('nav-shrink')
       }
     }, throttleMs)
   )
@@ -146,21 +140,60 @@ const Header = props => {
     <div id='top-nav' className='z-40'>
       <SearchDrawer cRef={searchDrawer} slot={searchDrawerSlot} />
 
+      <style jsx global>{`
+        #sticky-nav {
+          transition: all 0.6s ease-in-out;
+          padding: 16px 0;
+          background-color: rgba(243, 244, 246, 0.9);
+        }
+        #sticky-nav.nav-shrink {
+          padding: 2px 0;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+          background-color: rgba(243, 244, 246, 0.95);
+        }
+        .dark #sticky-nav {
+          background-color: rgba(31, 41, 55, 0.8);
+        }
+        .dark #sticky-nav.nav-shrink {
+          background-color: rgba(31, 41, 55, 0.9);
+        }
+        #sticky-nav .w-full {
+          transition: all 0.6s ease-in-out;
+          display: flex;
+          align-items: center;
+        }
+        #sticky-nav.nav-shrink .w-full {
+          transform: translateY(0);
+        }
+        #sticky-nav .logo-img {
+          transition: all 0.6s ease-in-out;
+          font-size: 1.125rem;
+        }
+        #sticky-nav.nav-shrink .logo-img {
+          font-size: 0.95rem;
+        }
+        #sticky-nav .menu-link {
+          display: flex;
+          align-items: center;
+          height: 100%;
+        }
+      `}</style>
+
       {/* 导航栏 */}
       <div
         id='sticky-nav'
-        style={{ backdropFilter: 'blur(3px)' }}
+        style={{ backdropFilter: 'blur(5px)' }}
         className={
-          'top-0 duration-300 transition-all  shadow-none fixed bg-gray-200 dark:bg-hexo-black-gray dark:text-gray-200 text-black w-full z-20 transform border-transparent dark:border-transparent'
+          'top-0 duration-300 transition-all shadow-none fixed text-black w-full z-20 transform border-transparent'
         }>
-        <div className='w-full flex justify-between items-center px-4 py-2'>
-          <div className='flex'>
+        <div className='w-full flex justify-between items-center px-4'>
+          <div className='flex items-center'>
             <Logo {...props} />
           </div>
 
           {/* 右侧功能 */}
-          <div className='mr-1 flex justify-end items-center '>
-            <div className='hidden lg:flex'>
+          <div className='mr-1 flex justify-end items-center'>
+            <div className='hidden lg:flex items-center'>
               {' '}
               <MenuListTop {...props} />
             </div>

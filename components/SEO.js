@@ -4,6 +4,7 @@ import { loadExternalResource } from '@/lib/utils'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { BlogPostCollectionJsonLd, BlogPostingJsonLd, BreadcrumbJsonLd, PersonJsonLd, ProductJsonLd, WebSiteJsonLd } from './JsonLD'
 
 /**
  * 页面的Head头，有用于SEO
@@ -137,6 +138,9 @@ const SEO = props => {
       <meta name='twitter:title' content={title} />
 
       <link rel='icon' href={BLOG_FAVICON} />
+      
+      {/* 添加规范链接，避免重复内容问题 */}
+      <link rel='canonical' href={`${siteConfig('LINK')}${router.asPath}`} />
 
       {COMMENT_WEBMENTION_ENABLE && (
         <>
@@ -165,6 +169,34 @@ const SEO = props => {
           <meta property='article:publisher' content={FACEBOOK_PAGE} />
         </>
       )}
+      
+      {/* 添加JSON-LD结构化数据 */}
+      <WebSiteJsonLd siteInfo={siteInfo} />
+      {post && post.type === 'Post' && (
+        <>
+          <BlogPostingJsonLd post={post} siteInfo={siteInfo} />
+          <BreadcrumbJsonLd currentPost={post} siteInfo={siteInfo} />
+        </>
+      )}
+      {post && post.type === 'Product' && (
+        <>
+          <ProductJsonLd 
+            product={{
+              name: post.title,
+              description: post.summary,
+              image: post.pageCoverThumbnail,
+              brand: siteInfo?.title
+            }} 
+          />
+          <BreadcrumbJsonLd currentPost={post} siteInfo={siteInfo} />
+        </>
+      )}
+      {/* 在文章列表页面添加文章集合结构化数据 */}
+      {(router.route === '/archive' || router.route === '/page/[page]' || router.route === '/category/[category]' || router.route === '/tag/[tag]') && props.posts && (
+        <BlogPostCollectionJsonLd posts={props.posts} siteInfo={siteInfo} />
+      )}
+      <PersonJsonLd siteInfo={siteInfo} />
+      
       {children}
     </Head>
   )

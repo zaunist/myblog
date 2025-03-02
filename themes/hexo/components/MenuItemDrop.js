@@ -15,13 +15,14 @@ export const MenuItemDrop = ({ link }) => {
 
   return (
     <div
+      className="flex items-center"
       onMouseOver={() => changeShow(true)}
       onMouseOut={() => changeShow(false)}>
       {!hasSubMenu && (
         <Link
           href={link?.href}
           target={link?.target}
-          className=' menu-link pl-2 pr-4 no-underline tracking-widest pb-1'>
+          className='menu-link pl-2 pr-4 no-underline tracking-widest flex items-center'>
           {link?.icon && <i className={link?.icon} />} {link?.name}
           {hasSubMenu && <i className='px-2 fa fa-angle-down'></i>}
         </Link>
@@ -29,10 +30,10 @@ export const MenuItemDrop = ({ link }) => {
 
       {hasSubMenu && (
         <>
-          <div className='cursor-pointer menu-link pl-2 pr-4  no-underline tracking-widest pb-1'>
+          <div className='cursor-pointer menu-link pl-2 pr-4 no-underline tracking-widest flex items-center'>
             {link?.icon && <i className={link?.icon} />} {link?.name}
             <i
-              className={`px-2 fa fa-angle-down duration-300  ${show ? 'rotate-180' : 'rotate-0'}`}></i>
+              className={`px-2 fa fa-angle-down duration-300 ${show ? 'rotate-180' : 'rotate-0'}`}></i>
           </div>
         </>
       )}
