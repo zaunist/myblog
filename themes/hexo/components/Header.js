@@ -58,11 +58,11 @@ const Header = props => {
       const nav = document.querySelector('#sticky-nav')
       // 首页和文章页会有头图
       const header = document.querySelector('#header')
+      const postTitle = document.querySelector('#post-bg')
+      
       // 导航栏和头图是否重叠
       const scrollInHeader =
-        header && (scrollS < 10 || scrollS < header?.clientHeight - 50) // 透明导航条的条件
-
-      // const textWhite = header && scrollInHeader
+        header && (scrollS < 10 || scrollS < header?.clientHeight - 50)
 
       if (scrollInHeader) {
         nav && nav.classList.replace('bg-gray-180', 'bg-none')
@@ -82,8 +82,17 @@ const Header = props => {
         nav && nav.classList.replace('text-white', 'text-black')
       }
 
-      // 修改导航栏滚动行为：滚动时轻微缩小而不是隐藏
-      if (scrollS > 100) {
+      // 修改导航栏滚动行为：当文章标题接触到导航栏时开始收缩
+      if (postTitle) {
+        const postTitleRect = postTitle.getBoundingClientRect()
+        const navRect = nav.getBoundingClientRect()
+        if (postTitleRect.top <= navRect.bottom) {
+          nav && nav.classList.add('nav-shrink')
+        } else {
+          nav && nav.classList.remove('nav-shrink')
+        }
+      } else if (scrollS > 50) { // 非文章页面在滚动50px时开始收缩
+        // 非文章页面保持原有行为
         nav && nav.classList.add('nav-shrink')
       } else {
         nav && nav.classList.remove('nav-shrink')

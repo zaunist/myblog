@@ -12,6 +12,9 @@ class MyDocument extends Document {
     return (
       <Html lang={BLOG.LANG}>
         <Head>
+          {/* 百度站长验证 */}
+          <meta name="baidu-site-verification" content="codeva-bqvSVJwVXp" />
+
           {/* Clarity 跟踪代码 */}
           <script
             dangerouslySetInnerHTML={{

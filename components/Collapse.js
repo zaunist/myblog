@@ -5,10 +5,15 @@ import { useEffect, useImperativeHandle, useRef } from 'react'
  * @param {type:['horizontal','vertical'],isOpen} props
  * @returns
  */
-const Collapse = props => {
-  const { collapseRef } = props
+const Collapse = ({ 
+  collapseRef, 
+  type = 'vertical', 
+  isOpen = false, 
+  className = '', 
+  children, 
+  onHeightChange 
+}) => {
   const ref = useRef(null)
-  const type = props.type || 'vertical'
 
   useImperativeHandle(collapseRef, () => {
     return {
@@ -17,7 +22,7 @@ const Collapse = props => {
        * @param {*} param0
        */
       updateCollapseHeight: ({ height, increase }) => {
-        if (props.isOpen) {
+        if (isOpen) {
           ref.current.style.height = ref.current.scrollHeight
           ref.current.style.height = 'auto'
         }
@@ -76,18 +81,17 @@ const Collapse = props => {
   }
 
   useEffect(() => {
-    if (props.isOpen) {
+    if (isOpen) {
       expandSection(ref.current)
     } else {
       collapseSection(ref.current)
     }
     // 通知父组件高度变化
-    props?.onHeightChange &&
-      props.onHeightChange({
-        height: ref.current.scrollHeight,
-        increase: props.isOpen
-      })
-  }, [props.isOpen])
+    onHeightChange?.({
+      height: ref.current.scrollHeight,
+      increase: isOpen
+    })
+  }, [isOpen])
 
   return (
     <div
@@ -97,11 +101,10 @@ const Collapse = props => {
           ? { height: '0px', willChange: 'height' }
           : { width: '0px', willChange: 'width' }
       }
-      className={`${props.className || ''} overflow-hidden duration-300`}>
-      {props.children}
+      className={`${className} overflow-hidden duration-300`}>
+      {children}
     </div>
   )
 }
-Collapse.defaultProps = { isOpen: false }
 
 export default Collapse

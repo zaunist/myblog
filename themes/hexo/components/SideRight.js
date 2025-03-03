@@ -7,24 +7,11 @@ import Announcement from './Announcement'
 import Card from './Card'
 import Catalog from './Catalog'
 import CategoryGroup from './CategoryGroup'
-import { InfoCard } from './InfoCard'
 import LatestPostsGroup from './LatestPostsGroup'
 import TagGroups from './TagGroups'
 import FollowAndDonate from './FollowAndDonate'
 
 const HexoRecentComments = dynamic(() => import('./HexoRecentComments'))
-const FaceBookPage = dynamic(
-  () => {
-    let facebook = <></>
-    try {
-      facebook = import('@/components/FacebookPage')
-    } catch (err) {
-      console.error(err)
-    }
-    return facebook
-  },
-  { ssr: false }
-)
 
 /**
  * Hexo主题右侧栏
@@ -100,7 +87,6 @@ export default function SideRight(props) {
           siteConfig('COMMENT_WALINE_RECENT') && <HexoRecentComments />}
 
         {rightAreaSlot}
-        <FaceBookPage />
       </div>
     </div>
   )
