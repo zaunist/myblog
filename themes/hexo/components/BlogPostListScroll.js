@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import CONFIG from '../config'
 import BlogPostCard from './BlogPostCard'
 import BlogPostListEmpty from './BlogPostListEmpty'
+import PostLoading from './PostLoading'
 
 /**
  * 博客列表滚动分页
@@ -19,8 +20,9 @@ const BlogPostListScroll = ({
   showSummary = siteConfig('HEXO_POST_LIST_SUMMARY', null, CONFIG),
   siteInfo
 }) => {
-  const { NOTION_CONFIG } = useGlobal()
+  const { NOTION_CONFIG, onLoading, locale } = useGlobal()
   const [page, updatePage] = useState(1)
+  const [loading, setLoading] = useState(true)
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
   const postsToShow = getListByPage(posts, page, POSTS_PER_PAGE)
 
@@ -58,8 +60,26 @@ const BlogPostListScroll = ({
     }
   })
 
+  // 在组件挂载后，设置loading为false
+  useEffect(() => {
+    // 如果posts已经加载完成，则设置loading为false
+    if (posts && posts.length > 0) {
+      setLoading(false)
+    } else {
+      // 如果posts为空，给一个短暂的延迟再检查一次
+      const timer = setTimeout(() => {
+        setLoading(false)
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [posts])
+
   const targetRef = useRef(null)
-  const { locale } = useGlobal()
+
+  // 如果正在加载中，显示加载动画
+  if (onLoading || loading) {
+    return <PostLoading />
+  }
 
   if (!postsToShow || postsToShow.length === 0) {
     return <BlogPostListEmpty currentSearch={currentSearch} />

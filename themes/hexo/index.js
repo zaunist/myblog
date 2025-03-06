@@ -9,7 +9,7 @@ import { Transition } from '@headlessui/react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { createContext, useContext, useEffect, useRef } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import ArticleAdjacent from './components/ArticleAdjacent'
 import ArticleCopyright from './components/ArticleCopyright'
 import { ArticleLock } from './components/ArticleLock'
@@ -33,6 +33,7 @@ import TocDrawer from './components/TocDrawer'
 import TocDrawerButton from './components/TocDrawerButton'
 import CONFIG from './config'
 import { Style } from './style'
+import PostLoading from './components/PostLoading'
 
 const AlgoliaSearchModal = dynamic(
   () => import('@/components/AlgoliaSearchModal'),
@@ -263,7 +264,24 @@ const LayoutArchive = props => {
 const LayoutSlug = props => {
   const { post, lock, validPassword } = props
   const router = useRouter()
+  const { onLoading } = useGlobal()
+  const [loading, setLoading] = useState(true)
   const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
+  
+  // 在组件挂载后，设置loading为false
+  useEffect(() => {
+    // 如果post已经加载完成，则设置loading为false
+    if (post && post.blockMap) {
+      setLoading(false)
+    } else {
+      // 如果post为空，给一个短暂的延迟再检查一次
+      const timer = setTimeout(() => {
+        setLoading(false)
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [post])
+  
   useEffect(() => {
     // 404
     if (!post) {
@@ -282,6 +300,12 @@ const LayoutSlug = props => {
       )
     }
   }, [post])
+  
+  // 如果正在加载中，显示加载动画
+  if (onLoading || loading) {
+    return <PostLoading />
+  }
+  
   return (
     <>
       <div className='w-full lg:hover:shadow lg:border rounded-t-xl lg:rounded-xl lg:px-2 lg:py-4 bg-white dark:bg-hexo-black-gray dark:border-black article'>
