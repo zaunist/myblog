@@ -11,8 +11,6 @@ import LatestPostsGroup from './LatestPostsGroup'
 import TagGroups from './TagGroups'
 import FollowAndDonate from './FollowAndDonate'
 
-const HexoRecentComments = dynamic(() => import('./HexoRecentComments'))
-
 /**
  * Hexo主题右侧栏
  * @param {*} props
@@ -82,9 +80,6 @@ export default function SideRight(props) {
           )}
 
         <Announcement post={notice} />
-
-        {siteConfig('COMMENT_WALINE_SERVER_URL') &&
-          siteConfig('COMMENT_WALINE_RECENT') && <HexoRecentComments />}
 
         {rightAreaSlot}
       </div>

@@ -1,4 +1,3 @@
-import Tabs from '@/components/Tabs'
 import { siteConfig } from '@/lib/config'
 import { isBrowser, isSearchEngineBot } from '@/lib/utils'
 import dynamic from 'next/dynamic'
@@ -16,15 +15,7 @@ const Comment = ({ frontMatter, className }) => {
   const [shouldLoad, setShouldLoad] = useState(false)
   const commentRef = useRef(null)
 
-  const COMMENT_ARTALK_SERVER = siteConfig('COMMENT_ARTALK_SERVER')
-  const COMMENT_TWIKOO_ENV_ID = siteConfig('COMMENT_TWIKOO_ENV_ID')
-  const COMMENT_WALINE_SERVER_URL = siteConfig('COMMENT_WALINE_SERVER_URL')
-  const COMMENT_VALINE_APP_ID = siteConfig('COMMENT_VALINE_APP_ID')
-  const COMMENT_GISCUS_REPO = siteConfig('COMMENT_GISCUS_REPO')
-  const COMMENT_CUSDIS_APP_ID = siteConfig('COMMENT_CUSDIS_APP_ID')
   const COMMENT_UTTERRANCES_REPO = siteConfig('COMMENT_UTTERRANCES_REPO')
-  const COMMENT_GITALK_CLIENT_ID = siteConfig('COMMENT_GITALK_CLIENT_ID')
-  const COMMENT_WEBMENTION_ENABLE = siteConfig('COMMENT_WEBMENTION_ENABLE')
 
   useEffect(() => {
     // Check if the component is visible in the viewport
@@ -51,7 +42,7 @@ const Comment = ({ frontMatter, className }) => {
   // 当连接中有特殊参数时跳转到评论区
   if (
     isBrowser &&
-    ('giscus' in router.query || router.query.target === 'comment')
+    router.query.target === 'comment'
   ) {
     setTimeout(() => {
       const url = router.asPath.replace('?target=comment', '')

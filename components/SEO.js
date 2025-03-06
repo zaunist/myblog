@@ -1,6 +1,6 @@
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
-import { loadExternalResource } from '@/lib/utils'
+import { loadExternalResource, ensureHttps } from '@/lib/utils'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -14,7 +14,7 @@ import { BlogPostCollectionJsonLd, BlogPostingJsonLd, BreadcrumbJsonLd, PersonJs
 const SEO = props => {
   const { children, siteInfo, post, NOTION_CONFIG } = props
   const PATH = siteConfig('PATH')
-  const LINK = siteConfig('LINK')
+  const LINK = ensureHttps(siteConfig('LINK'))
   const SUB_PATH = siteConfig('SUB_PATH', '')
   let url = PATH?.length
     ? `${LINK}/${SUB_PATH}`
@@ -76,22 +76,6 @@ const SEO = props => {
 
   const BLOG_FAVICON = siteConfig('BLOG_FAVICON', null, NOTION_CONFIG)
 
-  const COMMENT_WEBMENTION_ENABLE = siteConfig(
-    'COMMENT_WEBMENTION_ENABLE',
-    null,
-    NOTION_CONFIG
-  )
-
-  const COMMENT_WEBMENTION_HOSTNAME = siteConfig(
-    'COMMENT_WEBMENTION_HOSTNAME',
-    null,
-    NOTION_CONFIG
-  )
-  const COMMENT_WEBMENTION_AUTH = siteConfig(
-    'COMMENT_WEBMENTION_AUTH',
-    null,
-    NOTION_CONFIG
-  )
   const ANALYTICS_BUSUANZI_ENABLE = siteConfig(
     'ANALYTICS_BUSUANZI_ENABLE',
     null,
@@ -129,7 +113,7 @@ const SEO = props => {
       <meta property='og:locale' content={lang} />
       <meta property='og:title' content={title} />
       <meta property='og:description' content={description} />
-      <meta property='og:url' content={url} />
+      <meta property='og:url' content={ensureHttps(url)} />
       <meta property='og:image' content={image} />
       <meta property='og:site_name' content={title} />
       <meta property='og:type' content={type} />
@@ -140,23 +124,7 @@ const SEO = props => {
       <link rel='icon' href={BLOG_FAVICON} />
       
       {/* 添加规范链接，避免重复内容问题 */}
-      <link rel='canonical' href={`${siteConfig('LINK')}${router.asPath}`} />
-
-      {COMMENT_WEBMENTION_ENABLE && (
-        <>
-          <link
-            rel='webmention'
-            href={`https://webmention.io/${COMMENT_WEBMENTION_HOSTNAME}/webmention`}
-          />
-          <link
-            rel='pingback'
-            href={`https://webmention.io/${COMMENT_WEBMENTION_HOSTNAME}/xmlrpc`}
-          />
-          {COMMENT_WEBMENTION_AUTH && (
-            <link href={COMMENT_WEBMENTION_AUTH} rel='me' />
-          )}
-        </>
-      )}
+      <link rel='canonical' href={`${ensureHttps(siteConfig('LINK'))}${router.asPath}`} />
 
       {ANALYTICS_BUSUANZI_ENABLE && (
         <meta name='referrer' content='no-referrer-when-downgrade' />

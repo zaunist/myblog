@@ -1,5 +1,6 @@
 import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
+import { ensureHttps } from '@/lib/utils'
 
 /**
  * 生成文章的JSON-LD结构化数据
@@ -12,7 +13,7 @@ export const BlogPostingJsonLd = ({ post, siteInfo }) => {
 
   // 获取配置
   const author = siteConfig('AUTHOR') || BLOG.AUTHOR
-  const link = siteConfig('LINK') || BLOG.LINK
+  const link = ensureHttps(siteConfig('LINK') || BLOG.LINK)
   const title = siteConfig('TITLE') || BLOG.TITLE
 
   // 构建JSON-LD数据
@@ -109,7 +110,7 @@ export const WebSiteJsonLd = ({ siteInfo }) => {
 
   // 获取配置
   const author = siteConfig('AUTHOR') || BLOG.AUTHOR
-  const link = siteConfig('LINK') || BLOG.LINK
+  const link = ensureHttps(siteConfig('LINK') || BLOG.LINK)
   const title = siteConfig('TITLE') || BLOG.TITLE
   const description = siteConfig('DESCRIPTION') || BLOG.DESCRIPTION
 
@@ -181,7 +182,7 @@ export const BreadcrumbJsonLd = ({ posts, currentPost, siteInfo }) => {
   if (!currentPost) return null
 
   // 获取配置
-  const link = siteConfig('LINK') || BLOG.LINK
+  const link = ensureHttps(siteConfig('LINK') || BLOG.LINK)
   const title = siteConfig('TITLE') || BLOG.TITLE
 
   const breadcrumbItems = [
@@ -233,7 +234,7 @@ export const BreadcrumbJsonLd = ({ posts, currentPost, siteInfo }) => {
 export const PersonJsonLd = ({ siteInfo }) => {
   // 获取配置
   const author = siteConfig('AUTHOR') || BLOG.AUTHOR
-  const link = siteConfig('LINK') || BLOG.LINK
+  const link = ensureHttps(siteConfig('LINK') || BLOG.LINK)
   const title = siteConfig('TITLE') || BLOG.TITLE
   const contactEmail = siteConfig('CONTACT_EMAIL') || BLOG.CONTACT_EMAIL
   const contactTwitter = siteConfig('CONTACT_TWITTER') || BLOG.CONTACT_TWITTER
@@ -287,7 +288,7 @@ export const BlogPostCollectionJsonLd = ({ posts, siteInfo }) => {
   if (!posts || posts.length === 0) return null
 
   // 获取配置
-  const link = siteConfig('LINK') || BLOG.LINK
+  const link = ensureHttps(siteConfig('LINK') || BLOG.LINK)
   const title = siteConfig('TITLE') || BLOG.TITLE
 
   const jsonLd = {

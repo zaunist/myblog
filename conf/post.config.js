@@ -33,6 +33,16 @@ module.exports = {
 
   // 标签相关
   TAG_SORT_BY_COUNT: true, // 标签是否按照文章数量倒序排列，文章多的标签排在前。
+  // 标签云
+  IS_TAG_CLOUD_SHOW_ALL_TAGS:
+    process.env.NEXT_PUBLIC_IS_TAG_CLOUD_SHOW_ALL_TAGS === 'true' || true, // 是否在标签云中显示所有标签，false则只显示文章中使用了的标签
+  IS_TAG_CLOUD_BY_COUNT:
+    process.env.NEXT_PUBLIC_IS_TAG_CLOUD_BY_COUNT === 'true' || true, // 是否根据标签文章数量自动优化标签大小显示
   IS_TAG_COLOR_DISTINGUISHED:
-    process.env.NEXT_PUBLIC_IS_TAG_COLOR_DISTINGUISHED === 'true' || true // 对于名称相同的tag是否区分tag的颜色
+    process.env.NEXT_PUBLIC_IS_TAG_COLOR_DISTINGUISHED === 'true' || true, // 对于名称相同的tag是否区分tag的颜色
+
+  // 加载动画相关配置
+  LOADING_STYLE: process.env.NEXT_PUBLIC_LOADING_STYLE || 'simple', // 加载动画风格，可选 simple 或 elaborate
+  MIN_LOADING_TIME: process.env.NEXT_PUBLIC_MIN_LOADING_TIME || 800, // 最小加载动画显示时间，单位毫秒
+  DISABLE_INITIAL_LOADING: process.env.NEXT_PUBLIC_DISABLE_INITIAL_LOADING || false // 是否禁用初始加载动画
 }

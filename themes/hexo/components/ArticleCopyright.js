@@ -4,10 +4,11 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import CONFIG from '../config'
 import { siteConfig } from '@/lib/config'
+import { ensureHttps } from '@/lib/utils'
 
 export default function ArticleCopyright () {
   const router = useRouter()
-  const [path, setPath] = useState(siteConfig('LINK') + router.asPath)
+  const [path, setPath] = useState(ensureHttps(siteConfig('LINK')) + router.asPath)
   useEffect(() => {
     setPath(window.location.href)
   })
@@ -23,9 +24,7 @@ export default function ArticleCopyright () {
       <ul className="overflow-x-auto whitespace-nowrap text-sm dark:bg-gray-900 bg-gray-100 p-5 leading-8 border-l-2 border-indigo-500">
         <li>
           <strong className='mr-2'>{locale.COMMON.AUTHOR}:</strong>
-          <Link href={'/about'} className="hover:underline">
-            {siteConfig('AUTHOR')}
-          </Link>
+          {siteConfig('AUTHOR')}
         </li>
         <li>
         <strong className='mr-2'>{locale.COMMON.URL}:</strong>

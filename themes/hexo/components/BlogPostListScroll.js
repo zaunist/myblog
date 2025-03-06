@@ -6,6 +6,7 @@ import CONFIG from '../config'
 import BlogPostCard from './BlogPostCard'
 import BlogPostListEmpty from './BlogPostListEmpty'
 import PostLoading from './PostLoading'
+import useLoading from './useLoading'
 
 /**
  * 博客列表滚动分页
@@ -22,9 +23,11 @@ const BlogPostListScroll = ({
 }) => {
   const { NOTION_CONFIG, onLoading, locale } = useGlobal()
   const [page, updatePage] = useState(1)
-  const [loading, setLoading] = useState(true)
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
   const postsToShow = getListByPage(posts, page, POSTS_PER_PAGE)
+
+  // 使用自定义Hook来控制加载状态
+  const isLoading = useLoading(posts, 1000)
 
   let hasMore = false
   if (posts) {
@@ -60,24 +63,15 @@ const BlogPostListScroll = ({
     }
   })
 
-  // 在组件挂载后，设置loading为false
-  useEffect(() => {
-    // 如果posts已经加载完成，则设置loading为false
-    if (posts && posts.length > 0) {
-      setLoading(false)
-    } else {
-      // 如果posts为空，给一个短暂的延迟再检查一次
-      const timer = setTimeout(() => {
-        setLoading(false)
-      }, 1000)
-      return () => clearTimeout(timer)
-    }
-  }, [posts])
-
   const targetRef = useRef(null)
 
-  // 如果正在加载中，显示加载动画
-  if (onLoading || loading) {
+  // 优先使用组件内部的加载状态
+  if (isLoading) {
+    return <PostLoading />
+  }
+  
+  // 然后考虑全局加载状态
+  if (onLoading) {
     return <PostLoading />
   }
 

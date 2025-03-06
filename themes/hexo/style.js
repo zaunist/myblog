@@ -50,26 +50,7 @@ const Style = () => {
         background: rgba(45, 170, 219, 0.3);
     }
 
-    // 自定义滚动条
-    ::-webkit-scrollbar {
-        width: 5px;
-        height: 5px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background-color: #49b1f5;
-    }
-
-    * {
-        scrollbar-width:thin;
-        scrollbar-color: #49b1f5 transparent
-    }
-    
-
+    // 自定义滚动条样式已删除，恢复浏览器默认滚动条
   `}</style>)
 }
 

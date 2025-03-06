@@ -34,6 +34,7 @@ import TocDrawerButton from './components/TocDrawerButton'
 import CONFIG from './config'
 import { Style } from './style'
 import PostLoading from './components/PostLoading'
+import useLoading from './components/useLoading'
 
 const AlgoliaSearchModal = dynamic(
   () => import('@/components/AlgoliaSearchModal'),
@@ -265,22 +266,10 @@ const LayoutSlug = props => {
   const { post, lock, validPassword } = props
   const router = useRouter()
   const { onLoading } = useGlobal()
-  const [loading, setLoading] = useState(true)
   const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
   
-  // 在组件挂载后，设置loading为false
-  useEffect(() => {
-    // 如果post已经加载完成，则设置loading为false
-    if (post && post.blockMap) {
-      setLoading(false)
-    } else {
-      // 如果post为空，给一个短暂的延迟再检查一次
-      const timer = setTimeout(() => {
-        setLoading(false)
-      }, 1000)
-      return () => clearTimeout(timer)
-    }
-  }, [post])
+  // 使用自定义Hook来控制加载状态，减少最小加载时间，避免与路由加载状态重叠太久
+  const isLoading = useLoading(post, 500)
   
   useEffect(() => {
     // 404
@@ -301,8 +290,14 @@ const LayoutSlug = props => {
     }
   }, [post])
   
-  // 如果正在加载中，显示加载动画
-  if (onLoading || loading) {
+  // 优先使用组件内部的加载状态，避免与全局onLoading状态冲突
+  if (isLoading) {
+    return <PostLoading />
+  }
+  
+  // 只有在组件内部加载完成，但全局仍在加载状态的情况下才考虑全局状态
+  // 这样可以避免加载状态的闪烁
+  if (onLoading) {
     return <PostLoading />
   }
   
