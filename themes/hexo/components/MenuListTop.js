@@ -28,6 +28,13 @@ export const MenuListTop = props => {
       name: locale.NAV.ARCHIVE,
       href: '/archive',
       show: siteConfig('HEXO_MENU_ARCHIVE', null, CONFIG)
+    },
+    {
+      id: 4,
+      icon: 'fas fa-user',
+      name: '关于',
+      href: '/about',
+      show: true
     }
     // { icon: 'fas fa-folder', name: locale.COMMON.CATEGORY, href: '/category', show: siteConfig('MENU_CATEGORY', null, CONFIG) },
     // { icon: 'fas fa-tag', name: locale.COMMON.TAGS, href: '/tag', show: siteConfig('MENU_TAG', null, CONFIG) }

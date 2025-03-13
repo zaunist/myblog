@@ -22,6 +22,9 @@ const BLOG = {
   BEI_AN: process.env.NEXT_PUBLIC_BEI_AN || '', // 备案号 闽ICP备XXXXXX
   BEI_AN_LINK: process.env.NEXT_PUBLIC_BEI_AN_LINK || 'https://beian.miit.gov.cn/', // 备案查询链接，如果用了萌备等备案请在这里填写
 
+  // 关于页面配置
+  ABOUT_PAGE_ID: process.env.NEXT_PUBLIC_ABOUT_PAGE_ID || '', // 关于页面的Notion页面ID，如果留空则在数据库中查找slug为about的页面
+
   // RSS订阅
   ENABLE_RSS: process.env.NEXT_PUBLIC_ENABLE_RSS || true, // 是否开启RSS订阅功能
 

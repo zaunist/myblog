@@ -310,9 +310,9 @@ const LayoutSlug = props => {
               itemScope
               itemType='https://schema.org/Movie'
               className='subpixel-antialiased overflow-y-hidden'>
-              {/* Notion文章主体 */}
+              {/* Notion文章主体或自定义内容 */}
               <section className='px-5 justify-center mx-auto max-w-2xl lg:max-w-full'>
-                {post && <NotionPage post={post} />}
+                {post.customComponent ? post.customComponent : (post && <NotionPage post={post} />)}
               </section>
 
               {/* 分享 */}
