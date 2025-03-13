@@ -2,6 +2,7 @@ import { BeiAnGongAn } from '@/components/BeiAnGongAn'
 import BeiAnSite from '@/components/BeiAnSite'
 import PoweredBy from '@/components/PoweredBy'
 import { siteConfig } from '@/lib/config'
+import Link from 'next/link'
 
 const Footer = ({ title }) => {
   const d = new Date()
@@ -17,7 +18,7 @@ const Footer = ({ title }) => {
       <span>
         <i className='mx-1 animate-pulse fas fa-heart' />
         <a
-          href={siteConfig('LINK')}
+          href="https://zaunist.com"
           className='underline font-bold  dark:text-gray-300 '>
           {siteConfig('AUTHOR')}
         </a>
@@ -25,7 +26,9 @@ const Footer = ({ title }) => {
         <BeiAnSite />
         <BeiAnGongAn />
         <h1 className='text-xs pt-4 text-light-400 dark:text-gray-400'>
-          {title} {siteConfig('BIO') && <>|</>} {siteConfig('BIO')}
+          <Link href='/' className='hover:underline'>
+            {title}
+          </Link> {siteConfig('BIO') && <>|</>} {siteConfig('BIO')}
         </h1>
         <PoweredBy className='justify-center' />
       </span>

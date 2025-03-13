@@ -12,7 +12,6 @@ import { useRouter } from 'next/router'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import ArticleAdjacent from './components/ArticleAdjacent'
 import ArticleCopyright from './components/ArticleCopyright'
-import { ArticleLock } from './components/ArticleLock'
 import ArticleRecommend from './components/ArticleRecommend'
 import BlogPostArchive from './components/BlogPostArchive'
 import BlogPostListPage from './components/BlogPostListPage'
@@ -263,7 +262,7 @@ const LayoutArchive = props => {
  * @returns
  */
 const LayoutSlug = props => {
-  const { post, lock, validPassword } = props
+  const { post } = props
   const router = useRouter()
   const { onLoading } = useGlobal()
   const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
@@ -304,9 +303,7 @@ const LayoutSlug = props => {
   return (
     <>
       <div className='w-full lg:hover:shadow lg:border rounded-t-xl lg:rounded-xl lg:px-2 lg:py-4 bg-white dark:bg-hexo-black-gray dark:border-black article'>
-        {lock && <ArticleLock validPassword={validPassword} />}
-
-        {!lock && post && (
+        {post && (
           <div className='overflow-x-auto flex-grow mx-auto md:w-full md:px-5 '>
             <article
               id='article-wrapper'

@@ -51,7 +51,7 @@ const SEO = props => {
   }
   if (meta) {
     url = `${url}/${meta.slug}`
-    image = meta.image || '/bg_image.jpg'
+    image = meta.image || ''
   }
   const TITLE = siteConfig('TITLE')
   const title = meta?.title || TITLE
@@ -88,6 +88,10 @@ const SEO = props => {
   return (
     <Head>
       <link rel='icon' href={favicon} />
+      <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+      <link rel='icon' type='image/png' href='/icons/icon-32x32.png' />
+      <link rel='apple-touch-icon' href='/icons/icon-192x192.png' />
+      <link rel='manifest' href='/manifest.json' />
       <title>{title}</title>
       <meta name='theme-color' content={BACKGROUND_DARK} />
       <meta
@@ -124,7 +128,9 @@ const SEO = props => {
       <link rel='icon' href={BLOG_FAVICON} />
       
       {/* 添加规范链接，避免重复内容问题 */}
-      <link rel='canonical' href={`${ensureHttps(siteConfig('LINK'))}${router.asPath}`} />
+      <link rel='canonical' href={router.asPath === '/' 
+        ? `https://zaunist.com` 
+        : `https://zaunist.com${router.asPath}`} />
 
       {ANALYTICS_BUSUANZI_ENABLE && (
         <meta name='referrer' content='no-referrer-when-downgrade' />

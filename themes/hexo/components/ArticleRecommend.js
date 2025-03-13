@@ -30,9 +30,11 @@ export default function ArticleRecommend({ recommendPosts, siteInfo }) {
       </div>
       <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
         {recommendPosts.map(post => {
-          const headerImage = post?.pageCoverThumbnail
-            ? post.pageCoverThumbnail
-            : siteInfo?.pageCover
+          // 只使用文章自己的封面图片
+          const headerImage = post?.pageCoverThumbnail || ''
+
+          // 如果没有封面图片，使用纯色背景
+          const hasCover = !!headerImage
 
           return (
             <Link
@@ -47,10 +49,14 @@ export default function ArticleRecommend({ recommendPosts, siteInfo }) {
                     {post.title}
                   </div>
                 </div>
-                <LazyImage
-                  src={headerImage}
-                  className='absolute top-0 w-full h-full object-cover object-center group-hover:scale-110 group-hover:brightness-50 transform duration-200'
-                />
+                {hasCover ? (
+                  <LazyImage
+                    src={headerImage}
+                    className='absolute top-0 w-full h-full object-cover object-center group-hover:scale-110 group-hover:brightness-50 transform duration-200'
+                  />
+                ) : (
+                  <div className='absolute top-0 w-full h-full bg-gray-700 group-hover:brightness-50 transform duration-200'></div>
+                )}
 
                 {/* 卡片的阴影遮罩，为了凸显图片上的文字 */}
                 <div className='h-3/4 w-full absolute left-0 bottom-0'>

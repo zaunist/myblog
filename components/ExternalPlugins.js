@@ -7,8 +7,6 @@ import { useEffect } from 'react'
 import { GlobalStyle } from './GlobalStyle'
 import { initGoogleAdsense } from './GoogleAdsense'
 
-import WebWhiz from './Webwhiz'
-
 /**
  * 各种插件脚本
  * @param {*} props
@@ -16,7 +14,6 @@ import WebWhiz from './Webwhiz'
  */
 const ExternalPlugin = props => {
   const DISABLE_PLUGIN = siteConfig('DISABLE_PLUGIN')
-  const THEME_SWITCH = siteConfig('THEME_SWITCH')
   const ANALYTICS_ACKEE_TRACKER = siteConfig('ANALYTICS_ACKEE_TRACKER')
   const ANALYTICS_VERCEL = siteConfig('ANALYTICS_VERCEL')
   const ADSENSE_GOOGLE_ID = siteConfig('ADSENSE_GOOGLE_ID')
@@ -24,9 +21,6 @@ const ExternalPlugin = props => {
   const CUSTOM_RIGHT_CLICK_CONTEXT_MENU = siteConfig(
     'CUSTOM_RIGHT_CLICK_CONTEXT_MENU'
   )
-  const CAN_COPY = siteConfig('CAN_COPY')
-  const WEB_WHIZ_ENABLED = siteConfig('WEB_WHIZ_ENABLED')
-  const AD_WWADS_BLOCK_DETECT = siteConfig('AD_WWADS_BLOCK_DETECT')
   const ANALYTICS_BAIDU_ID = siteConfig('ANALYTICS_BAIDU_ID')
   const ANALYTICS_GOOGLE_ID = siteConfig('ANALYTICS_GOOGLE_ID')
   const DIFY_CHATBOT_ENABLED = siteConfig('DIFY_CHATBOT_ENABLED')
@@ -101,15 +95,11 @@ const ExternalPlugin = props => {
     <>
       {/* 全局样式嵌入 */}
       <GlobalStyle />
-      {THEME_SWITCH && <ThemeSwitch />}
       {ANALYTICS_ACKEE_TRACKER && <Ackee />}
       {ANALYTICS_GOOGLE_ID && <Gtag />}
       {ANALYTICS_VERCEL && <Analytics />}
       {DIFY_CHATBOT_ENABLED && <DifyChatbot />}
       {CUSTOM_RIGHT_CLICK_CONTEXT_MENU && <CustomContextMenu {...props} />}
-      {!CAN_COPY && <DisableCopy />}
-      {WEB_WHIZ_ENABLED && <WebWhiz />}
-      {AD_WWADS_BLOCK_DETECT && <AdBlockDetect />}
       {TIANLI_KEY && <TianliGPT />}
       {ENABLE_NPROGRSS && <LoadingProgress />}
 
@@ -191,9 +181,6 @@ const Analytics = dynamic(
   { ssr: false }
 )
 
-const DisableCopy = dynamic(() => import('@/components/DisableCopy'), {
-  ssr: false
-})
 const LoadingProgress = dynamic(() => import('@/components/LoadingProgress'), {
   ssr: false
 })

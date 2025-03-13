@@ -1,5 +1,4 @@
 // import Image from 'next/image'
-import LazyImage from '@/components/LazyImage'
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import { loadExternalResource } from '@/lib/utils'
@@ -59,7 +58,7 @@ const Hero = props => {
     <header
       id='header'
       style={{ zIndex: 1 }}
-      className='w-full h-screen relative bg-black'>
+      className='w-full h-screen relative bg-gray-900'>
       <div className='text-white absolute bottom-0 flex flex-col h-full items-center justify-center w-full '>
         {/* 站点标题 */}
         <div className='font-black text-4xl md:text-5xl shadow-text'>
@@ -86,13 +85,6 @@ const Hero = props => {
           <i className='opacity-70 animate-bounce fas fa-angle-down' />
         </div>
       </div>
-
-      <LazyImage
-        id='header-cover'
-        alt={siteInfo?.title}
-        src={siteInfo?.pageCover}
-        className={`header-cover w-full h-screen object-cover object-center ${siteConfig('HEXO_HOME_NAV_BACKGROUND_IMG_FIXED', null, CONFIG) ? 'fixed' : ''}`}
-      />
     </header>
   )
 }

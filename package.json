@@ -44,7 +44,8 @@
     "react-hotkeys-hook": "^4.5.0",
     "react-notion-x": "6.16.0",
     "react-share": "^4.4.1",
-    "react-tweet-embed": "~2.0.0"
+    "react-tweet-embed": "~2.0.0",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@types/react": "18.3.10",

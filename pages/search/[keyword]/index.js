@@ -153,8 +153,8 @@ async function filterByMemCache(allPosts, keyword) {
 
 export function getPageContentText(post, pageBlockMap) {
   let indexContent = []
-  // 防止搜到加密文章的内容
-  if (pageBlockMap && pageBlockMap.block && !post.password) {
+  // 获取文章内容
+  if (pageBlockMap && pageBlockMap.block) {
     const contentIds = Object.keys(pageBlockMap.block)
     contentIds.forEach(id => {
       const properties = pageBlockMap?.block[id]?.value?.properties

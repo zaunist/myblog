@@ -198,7 +198,27 @@ const nextConfig = {
 
     if (!isServer) {
       console.log('[默认主题]', path.resolve(__dirname, 'themes', THEME))
+      
+      // 处理Node.js核心模块在浏览器环境中的问题
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        dns: false,
+        fs: false,
+        net: false,
+        tls: false,
+        child_process: false,
+        http2: false,
+        http: false,
+        https: false,
+        stream: false,
+        zlib: false,
+        path: false,
+        crypto: false,
+        os: false,
+        querystring: false
+      }
     }
+    
     config.resolve.alias['@theme-components'] = path.resolve(
       __dirname,
       'themes',

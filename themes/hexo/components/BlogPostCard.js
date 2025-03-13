@@ -7,13 +7,8 @@ import { BlogPostCardInfo } from './BlogPostCardInfo'
 const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
   const showPreview =
     siteConfig('HEXO_POST_LIST_PREVIEW', null, CONFIG) && post.blockMap
-  if (
-    post &&
-    !post.pageCoverThumbnail &&
-    siteConfig('HEXO_POST_LIST_COVER_DEFAULT', null, CONFIG)
-  ) {
-    post.pageCoverThumbnail = siteInfo?.pageCover
-  }
+  
+  // 只使用文章自己的封面图，不使用默认封面图
   const showPageCover =
     siteConfig('HEXO_POST_LIST_COVER', null, CONFIG) &&
     post?.pageCoverThumbnail &&

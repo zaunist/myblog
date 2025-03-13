@@ -220,9 +220,8 @@ a.avatar-wrapper {
 }
 
 .forbid-copy {
-  user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
+  /* 移除禁止复制的样式，改为空样式 */
+  /* 不完全删除类以防其他地方有引用，但移除其功能 */
 }
 
 .writing-vertical {

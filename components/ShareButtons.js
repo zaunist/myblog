@@ -1,6 +1,5 @@
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -49,8 +48,6 @@ import {
   WorkplaceShareButton
 } from 'react-share'
 
-const QrCode = dynamic(() => import('@/components/QrCode'), { ssr: false })
-
 /**
  * @author https://github.com/txs
  * @param {*} param0
@@ -61,7 +58,7 @@ const ShareButtons = ({ post }) => {
   const [shareUrl, setShareUrl] = useState(siteConfig('LINK') + router.asPath)
   const title = post?.title || siteConfig('TITLE')
   const image = post?.pageCover
-  const tags = post.tags || []
+  const tags = post?.tags || []
   const hashTags = tags.map(tag => `#${tag}`).join(',')
   const body =
     post?.title + ' | ' + title + ' ' + shareUrl + ' ' + post?.summary
@@ -329,29 +326,15 @@ const ShareButtons = ({ post }) => {
           case 'wechat':
             return (
               <button
-                onMouseEnter={openPopover}
-                onMouseLeave={closePopover}
-                aria-label={singleService}
                 key={singleService}
                 className='cursor-pointer bg-green-600 text-white rounded-full mx-1'>
-                <div id='wechat-button'>
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  aria-label='Share by WeChat'
+                  href={`https://wechat.com/?text=${encodeURIComponent(titleWithSiteInfo + ' ' + shareUrl)}`}>
                   <i className='fab fa-weixin w-8' />
-                </div>
-                <div className='absolute'>
-                  <div
-                    id='pop'
-                    className={
-                      (qrCodeShow ? 'opacity-100 ' : ' invisible opacity-0') +
-                      ' z-40 absolute bottom-10 -left-10 bg-white shadow-xl transition-all duration-200 text-center'
-                    }>
-                    <div className='p-2 mt-1 w-28 h-28'>
-                      {qrCodeShow && <QrCode value={shareUrl} />}
-                    </div>
-                    <span className='text-black font-semibold p-1 rounded-t-lg text-sm mx-auto mb-1'>
-                      {locale.COMMON.SCAN_QR_CODE}
-                    </span>
-                  </div>
-                </div>
+                </a>
               </button>
             )
           case 'link':

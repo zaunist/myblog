@@ -69,7 +69,7 @@ const SearchInput = props => {
         ref={searchInputRef}
         type="text"
         className={
-          'outline-none w-full text-sm pl-5 rounded-lg transition focus:shadow-lg dark:text-gray-300 font-light leading-10 text-black bg-gray-100 dark:bg-gray-500'
+          'outline-none w-full text-lg pl-6 py-4 rounded-lg transition shadow-md hover:shadow-lg focus:shadow-xl border-2 border-gray-200 dark:border-gray-600 dark:text-white font-normal leading-10 text-black bg-white dark:bg-gray-700'
         }
         onKeyUp={handleKeyUp}
         onCompositionStart={lockSearchInput}
@@ -81,20 +81,20 @@ const SearchInput = props => {
       />
 
       <div
-        className="-ml-8 cursor-pointer  float-right items-center justify-center py-2"
+        className="-ml-12 cursor-pointer float-right items-center justify-center py-4"
         onClick={handleSearch}
       >
         <i
-          className={`hover:text-black transform duration-200 text-gray-500 dark:text-gray-200 cursor-pointer fas ${
+          className={`hover:text-black transform duration-200 text-gray-500 dark:text-gray-200 cursor-pointer text-xl fas ${
             onLoading ? 'fa-spinner animate-spin' : 'fa-search'
           }`}
         />
       </div>
 
       {showClean && (
-        <div className="-ml-12 cursor-pointer float-right items-center justify-center py-2">
+        <div className="-ml-16 cursor-pointer float-right items-center justify-center py-4">
           <i
-            className="hover:text-black transform duration-200 text-gray-400 dark:text-gray-300 cursor-pointer fas fa-times"
+            className="hover:text-black transform duration-200 text-gray-400 dark:text-gray-300 cursor-pointer text-xl fas fa-times"
             onClick={cleanSearch}
           />
         </div>
