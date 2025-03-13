@@ -50,8 +50,12 @@ export async function getStaticPaths() {
 
   const from = 'slug-paths'
   const { allPages } = await getGlobalData({ from })
+  
+  // 排除的路径列表，这些路径有专门的页面处理
+  const excludePaths = ['about', 'archive', 'search', 'tag', 'category', 'page']
+  
   const paths = allPages
-    ?.filter(row => checkSlugHasNoSlash(row))
+    ?.filter(row => checkSlugHasNoSlash(row) && !excludePaths.includes(row.slug))
     .map(row => ({ params: { prefix: row.slug } }))
   return {
     paths: paths,
