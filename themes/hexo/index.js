@@ -52,6 +52,12 @@ export const useHexoGlobal = () => useContext(ThemeGlobalHexo)
  */
 const LayoutBase = props => {
   const { post, children, slotTop, className } = props
+  
+  // 将useRef移到所有useContext调用之前
+  const drawerRight = useRef(null)
+  const searchModal = useRef(null)
+  
+  // useContext调用
   const { onLoading, fullWidth } = useGlobal()
   const router = useRouter()
   const showRandomButton = siteConfig('HEXO_MENU_RANDOM', false, CONFIG)
@@ -63,7 +69,6 @@ const LayoutBase = props => {
     <Hero {...props} />
   ) : null
 
-  const drawerRight = useRef(null)
   const tocRef = isBrowser ? document.getElementById('article-wrapper') : null
 
   // 悬浮按钮内容
@@ -82,9 +87,6 @@ const LayoutBase = props => {
       {showRandomButton && <ButtonRandomPostMini {...props} />}
     </>
   )
-
-  // Algolia搜索框
-  const searchModal = useRef(null)
 
   return (
     <ThemeGlobalHexo.Provider value={{ searchModal }}>
@@ -212,7 +214,8 @@ const LayoutSearch = props => {
         }
       })
     }
-  })
+  // 添加适当的依赖数组，只在 currentSearch 或 keyword 变化时执行
+  }, [currentSearch, keyword])
 
   return (
     <div className='pt-8'>
@@ -287,16 +290,10 @@ const LayoutSlug = props => {
         waiting404
       )
     }
-  }, [post])
+  }, [post, router, waiting404])
   
-  // 优先使用组件内部的加载状态，避免与全局onLoading状态冲突
-  if (isLoading) {
-    return <PostLoading />
-  }
-  
-  // 只有在组件内部加载完成，但全局仍在加载状态的情况下才考虑全局状态
-  // 这样可以避免加载状态的闪烁
-  if (onLoading) {
+  // 如果正在加载，显示加载组件
+  if (isLoading || onLoading) {
     return <PostLoading />
   }
   
@@ -358,7 +355,8 @@ const Layout404 = props => {
         }
       }
     }, 3000)
-  })
+  // 添加空的依赖数组，避免无限循环
+  }, [])
   return (
     <>
       <div className='text-black w-full h-screen text-center justify-center content-center items-center flex flex-col'>

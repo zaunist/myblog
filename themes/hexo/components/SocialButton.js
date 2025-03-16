@@ -16,7 +16,6 @@ const SocialButton = () => {
   const CONTACT_INSTAGRAM = siteConfig('CONTACT_INSTAGRAM')
   const CONTACT_EMAIL = siteConfig('CONTACT_EMAIL')
   const ENABLE_RSS = siteConfig('ENABLE_RSS')
-  const CONTACT_BILIBILI = siteConfig('CONTACT_BILIBILI')
   const CONTACT_YOUTUBE = siteConfig('CONTACT_YOUTUBE')
 
   const CONTACT_WEHCHAT_PUBLIC = siteConfig('CONTACT_WEHCHAT_PUBLIC')
@@ -102,15 +101,6 @@ const SocialButton = () => {
             title={'RSS'}
             href={'/rss/feed.xml'}>
             <i className='transform hover:scale-125 duration-150 fas fa-rss dark:hover:text-indigo-400 hover:text-indigo-600' />
-          </a>
-        )}
-        {CONTACT_BILIBILI && (
-          <a
-            target='_blank'
-            rel='noreferrer'
-            title={'bilibili'}
-            href={CONTACT_BILIBILI}>
-            <i className='transform hover:scale-125 duration-150 dark:hover:text-indigo-400 hover:text-indigo-600 fab fa-bilibili' />
           </a>
         )}
         {CONTACT_YOUTUBE && (

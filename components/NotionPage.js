@@ -1,11 +1,16 @@
 import { siteConfig } from '@/lib/config'
 import { compressImage, mapImgUrl } from '@/lib/notion/mapImage'
 import { isBrowser, loadExternalResource } from '@/lib/utils'
-import mediumZoom from '@fisch0920/medium-zoom'
 import 'katex/dist/katex.min.css'
 import dynamic from 'next/dynamic'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { NotionRenderer } from 'react-notion-x'
+
+// 动态导入 medium-zoom，减少初始加载的数据量
+const MediumZoom = dynamic(() => import('@fisch0920/medium-zoom'), { 
+  ssr: false,
+  loading: () => <div>Loading Zoom...</div>
+})
 
 /**
  * 整个站点的核心组件
@@ -18,17 +23,26 @@ const NotionPage = ({ post, className }) => {
   const POST_DISABLE_GALLERY_CLICK = siteConfig('POST_DISABLE_GALLERY_CLICK')
   const POST_DISABLE_DATABASE_CLICK = siteConfig('POST_DISABLE_DATABASE_CLICK')
   const SPOILER_TEXT_TAG = siteConfig('SPOILER_TEXT_TAG')
-
-  const zoom =
-    isBrowser &&
-    mediumZoom({
-      //   container: '.notion-viewport',
-      background: 'rgba(0, 0, 0, 0.2)',
-      margin: getMediumZoomMargin()
-    })
-
-  const zoomRef = useRef(zoom ? zoom.clone() : null)
   const IMAGE_ZOOM_IN_WIDTH = siteConfig('IMAGE_ZOOM_IN_WIDTH', 1200)
+
+  // 所有状态和引用放在组件顶部
+  const zoomRef = useRef(null)
+  const [observerAttached, setObserverAttached] = useState(false)
+  
+  // 初始化 medium-zoom
+  useEffect(() => {
+    if (isBrowser) {
+      import('@fisch0920/medium-zoom').then(module => {
+        const mediumZoom = module.default
+        const zoom = mediumZoom({
+          background: 'rgba(0, 0, 0, 0.2)',
+          margin: getMediumZoomMargin()
+        })
+        zoomRef.current = zoom ? zoom.clone() : null
+      })
+    }
+  }, [])
+
   // 页面首次打开时执行的勾子
   useEffect(() => {
     // 检测当前的url并自动滚动到对应目标
@@ -38,56 +52,66 @@ const NotionPage = ({ post, className }) => {
   // 页面文章发生变化时会执行的勾子
   useEffect(() => {
     // 相册视图点击禁止跳转，只能放大查看图片
-    if (POST_DISABLE_GALLERY_CLICK) {
+    if (POST_DISABLE_GALLERY_CLICK && zoomRef.current) {
       // 针对页面中的gallery视图，点击后是放大图片还是跳转到gallery的内部页面
-      processGalleryImg(zoomRef?.current)
+      processGalleryImg(zoomRef.current)
     }
 
     // 页内数据库点击禁止跳转，只能查看
     if (POST_DISABLE_DATABASE_CLICK) {
       processDisableDatabaseUrl()
     }
+  }, [post, POST_DISABLE_GALLERY_CLICK, POST_DISABLE_DATABASE_CLICK])
 
-    /**
-     * 放大查看图片时替换成高清图像
-     */
-    const observer = new MutationObserver((mutationsList, observer) => {
-      mutationsList.forEach(mutation => {
-        if (
-          mutation.type === 'attributes' &&
-          mutation.attributeName === 'class'
-        ) {
-          if (mutation.target.classList.contains('medium-zoom-image--opened')) {
-            // 等待动画完成后替换为更高清的图像
-            setTimeout(() => {
-              // 获取该元素的 src 属性
-              const src = mutation?.target?.getAttribute('src')
-              //   替换为更高清的图像
-              mutation?.target?.setAttribute(
-                'src',
-                compressImage(src, IMAGE_ZOOM_IN_WIDTH)
-              )
-            }, 800)
-          }
-        }
-      })
-    })
-
-    // 监视页面元素和属性变化
-    observer.observe(document.body, {
-      attributes: true,
-      subtree: true,
-      attributeFilter: ['class']
-    })
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [post])
-
+  // 单独的 useEffect 处理 MutationObserver
   useEffect(() => {
-    // Spoiler文本功能
-    if (SPOILER_TEXT_TAG) {
+    // 只在浏览器环境且未附加观察器时执行
+    if (isBrowser && !observerAttached) {
+      /**
+       * 放大查看图片时替换成高清图像
+       */
+      const observer = new MutationObserver((mutationsList) => {
+        mutationsList.forEach(mutation => {
+          if (
+            mutation.type === 'attributes' &&
+            mutation.attributeName === 'class'
+          ) {
+            if (mutation.target.classList.contains('medium-zoom-image--opened')) {
+              // 等待动画完成后替换为更高清的图像
+              setTimeout(() => {
+                // 获取该元素的 src 属性
+                const src = mutation?.target?.getAttribute('src')
+                //   替换为更高清的图像
+                mutation?.target?.setAttribute(
+                  'src',
+                  compressImage(src, IMAGE_ZOOM_IN_WIDTH)
+                )
+              }, 800)
+            }
+          }
+        })
+      })
+
+      // 监视页面元素和属性变化
+      observer.observe(document.body, {
+        attributes: true,
+        subtree: true,
+        attributeFilter: ['class']
+      })
+
+      // 标记观察器已附加，避免重复附加
+      setObserverAttached(true)
+
+      return () => {
+        // 清理观察器
+        observer.disconnect()
+      }
+    }
+  }, [IMAGE_ZOOM_IN_WIDTH])
+
+  // Spoiler文本功能
+  useEffect(() => {
+    if (SPOILER_TEXT_TAG && isBrowser) {
       import('lodash/escapeRegExp').then(escapeRegExp => {
         Promise.all([
           loadExternalResource('/js/spoilerText.js', 'js'),
@@ -98,7 +122,7 @@ const NotionPage = ({ post, className }) => {
         })
       })
     }
-  }, [post])
+  }, [SPOILER_TEXT_TAG])
 
   return (
     <div

@@ -19,20 +19,30 @@ import BLOG from '@/blog.config'
 import ExternalPlugins from '@/components/ExternalPlugins'
 import SEO from '@/components/SEO'
 
+// 增加页面数据大小限制
+export const config = {
+  unstable_runtimeJS: true,
+  unstable_allowDynamic: [
+    // 允许所有页面数据，即使超过默认限制
+    '**/*'
+  ]
+}
+
 /**
  * App挂载DOM 入口文件
  * @param {*} param0
  * @returns
  */
 const MyApp = ({ Component, pageProps }) => {
-  // 一些可能出现 bug 的样式，可以统一放入该钩子进行调整
-  useAdjustStyle()
-
-  // 添加加载状态
+  // 获取路由和配置
+  const router = useRouter()
+  const disableInitialLoading = siteConfig('DISABLE_INITIAL_LOADING')
+  
+  // 所有状态和引用放在组件顶部
   const [isLoading, setIsLoading] = useState(false)
   
-  // 获取加载动画相关配置
-  const disableInitialLoading = siteConfig('DISABLE_INITIAL_LOADING')
+  // 一些可能出现 bug 的样式，可以统一放入该钩子进行调整
+  useAdjustStyle()
 
   // 应用挂载时移除初始加载动画
   useEffect(() => {
@@ -45,7 +55,6 @@ const MyApp = ({ Component, pageProps }) => {
   }, [])
 
   // 监听路由变化，控制加载状态
-  const router = useRouter()
   useEffect(() => {
     let loadingTimeout = null
     let isChangingRoute = false
@@ -87,14 +96,14 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }, [router])
 
-  const route = router
+  // 使用 useMemo 确保主题计算只在依赖变化时进行
   const theme = useMemo(() => {
     return (
-      getQueryParam(route.asPath, 'theme') ||
+      getQueryParam(router.asPath, 'theme') ||
       pageProps?.NOTION_CONFIG?.THEME ||
       BLOG.THEME
     )
-  }, [route])
+  }, [router.asPath, pageProps?.NOTION_CONFIG?.THEME])
 
   // 整体布局
   const GLayout = useCallback(
@@ -108,7 +117,7 @@ const MyApp = ({ Component, pageProps }) => {
   // 将isLoading状态传递给GlobalContextProvider
   pageProps.loadingRouteChange = isLoading
 
-  const content = (
+  return (
     <GlobalContextProvider {...pageProps}>
       <GLayout {...pageProps}>
         <SEO {...pageProps} />
@@ -116,11 +125,6 @@ const MyApp = ({ Component, pageProps }) => {
       </GLayout>
       <ExternalPlugins {...pageProps} />
     </GlobalContextProvider>
-  )
-  return (
-    <>
-      {content}
-    </>
   )
 }
 

@@ -8,7 +8,6 @@ import Card from './Card'
  */
 const Follow = () => {
   const CONTACT_TWITTER = siteConfig('CONTACT_TWITTER')
-  const CONTACT_BILIBILI = siteConfig('CONTACT_BILIBILI')
   const CONTACT_YOUTUBE = siteConfig('CONTACT_YOUTUBE')
   const CONTACT_TELEGRAM = siteConfig('CONTACT_TELEGRAM')
 
@@ -27,18 +26,7 @@ const Follow = () => {
               title={'Twitter'}
               href={CONTACT_TWITTER}
               className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition duration-150 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm font-bold'>
-              Twitter
-            </a>
-          )}
-          
-          {CONTACT_BILIBILI && (
-            <a
-              target='_blank'
-              rel='noreferrer'
-              title={'哔哩哔哩'}
-              href={CONTACT_BILIBILI}
-              className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition duration-150 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm font-bold'>
-              BiliBili
+              <i className='fab fa-twitter mr-1'></i>Twitter
             </a>
           )}
           
@@ -49,7 +37,7 @@ const Follow = () => {
               title={'YouTube'}
               href={CONTACT_YOUTUBE}
               className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition duration-150 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm font-bold'>
-              YouTube
+              <i className='fab fa-youtube mr-1'></i>YouTube
             </a>
           )}
           
@@ -60,7 +48,7 @@ const Follow = () => {
               title={'Telegram'}
               href={CONTACT_TELEGRAM}
               className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition duration-150 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm font-bold'>
-              Telegram
+              <i className='fab fa-telegram mr-1'></i>Telegram
             </a>
           )}
         </div>
