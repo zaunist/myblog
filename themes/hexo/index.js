@@ -35,11 +35,6 @@ import { Style } from './style'
 import PostLoading from './components/PostLoading'
 import useLoading from './components/useLoading'
 
-const AlgoliaSearchModal = dynamic(
-  () => import('@/components/AlgoliaSearchModal'),
-  { ssr: false }
-)
-
 // 主题全局状态
 const ThemeGlobalHexo = createContext()
 export const useHexoGlobal = () => useContext(ThemeGlobalHexo)
@@ -154,9 +149,6 @@ const LayoutBase = props => {
 
         {/* 悬浮菜单 */}
         <RightFloatArea floatSlot={floatSlot} />
-
-        {/* 全文搜索 */}
-        <AlgoliaSearchModal cRef={searchModal} {...props} />
 
         {/* 页脚 */}
         <Footer title={siteConfig('TITLE')} />

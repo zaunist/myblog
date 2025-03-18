@@ -97,7 +97,6 @@ const ExternalPlugin = props => {
       <GlobalStyle />
       {ANALYTICS_ACKEE_TRACKER && <Ackee />}
       {ANALYTICS_GOOGLE_ID && <Gtag />}
-      {ANALYTICS_VERCEL && <Analytics />}
       {DIFY_CHATBOT_ENABLED && <DifyChatbot />}
       {CUSTOM_RIGHT_CLICK_CONTEXT_MENU && <CustomContextMenu {...props} />}
       {TIANLI_KEY && <TianliGPT />}
@@ -172,14 +171,6 @@ const ExternalPlugin = props => {
     </>
   )
 }
-
-const Analytics = dynamic(
-  () =>
-    import('@vercel/analytics/react').then(async m => {
-      return m.Analytics
-    }),
-  { ssr: false }
-)
 
 const LoadingProgress = dynamic(() => import('@/components/LoadingProgress'), {
   ssr: false

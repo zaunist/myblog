@@ -23,31 +23,28 @@
     "version": "echo $npm_package_version"
   },
   "dependencies": {
-    "@clerk/localizations": "^3.0.4",
-    "@clerk/nextjs": "^5.1.5",
+    "@babel/runtime": "^7.26.10",
     "@headlessui/react": "^1.7.15",
     "@next/bundle-analyzer": "^12.1.1",
-    "@vercel/analytics": "^1.0.0",
-    "algoliasearch": "^4.18.0",
-    "axios": "^1.7.2",
+    "axios": "^1.8.3",
     "feed": "^4.2.2",
     "ioredis": "^5.4.2",
     "lodash.throttle": "^4.1.1",
     "memory-cache": "^0.2.0",
     "next": "14.2.4",
-    "notion-client": "6.15.6",
-    "notion-utils": "6.15.6",
+    "notion-client": "7.1.6",
+    "notion-utils": "7.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hotkeys-hook": "^4.5.0",
     "react-intersection-observer": "^9.16.0",
-    "react-lazy-images": "^1.1.0",
-    "react-notion-x": "6.16.0",
+    "react-notion-x": "7.2.6",
     "react-share": "^5.2.2",
     "react-tweet-embed": "~2.0.0",
     "sharp": "^0.33.5"
   },
   "devDependencies": {
+    "@types/node": "22.13.10",
     "@types/react": "18.3.10",
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",
@@ -67,12 +64,6 @@
     "tailwindcss": "^3.3.2",
     "typescript": "5.6.2",
     "webpack-bundle-analyzer": "^4.5.0"
-  },
-  "resolutions": {
-    "axios": "1.7.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-intersection-observer": "^9.16.0"
   },
   "bugs": {
     "url": "https://github.com/tangly/NotionNext/issues",
