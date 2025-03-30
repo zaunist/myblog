@@ -15,6 +15,7 @@ export const BlogPostingJsonLd = ({ post, siteInfo }) => {
   const author = siteConfig('AUTHOR') || BLOG.AUTHOR
   const link = ensureHttps(siteConfig('LINK') || BLOG.LINK)
   const title = siteConfig('TITLE') || BLOG.TITLE
+  const POST_URL_PREFIX = siteConfig('POST_URL_PREFIX') || BLOG.POST_URL_PREFIX || 'article'
 
   // 构建JSON-LD数据
   const jsonLd = {
@@ -39,7 +40,7 @@ export const BlogPostingJsonLd = ({ post, siteInfo }) => {
     dateModified: new Date(post.lastEditedDate || post.lastEditedDay).toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${link}/${post.slug}`
+      '@id': `${link}/${POST_URL_PREFIX}/${post.slug}`
     },
     isAccessibleForFree: 'True',
     inLanguage: siteConfig('LANG') || BLOG.LANG
@@ -184,6 +185,7 @@ export const BreadcrumbJsonLd = ({ posts, currentPost, siteInfo }) => {
   // 获取配置
   const link = ensureHttps(siteConfig('LINK') || BLOG.LINK)
   const title = siteConfig('TITLE') || BLOG.TITLE
+  const POST_URL_PREFIX = siteConfig('POST_URL_PREFIX') || BLOG.POST_URL_PREFIX || 'article'
 
   const breadcrumbItems = [
     {
@@ -209,7 +211,7 @@ export const BreadcrumbJsonLd = ({ posts, currentPost, siteInfo }) => {
     '@type': 'ListItem',
     position: currentPost.category ? 3 : 2,
     name: currentPost.title,
-    item: `${link}/${currentPost.slug}`
+    item: `${link}/${POST_URL_PREFIX}/${currentPost.slug}`
   })
 
   const jsonLd = {
@@ -290,6 +292,7 @@ export const BlogPostCollectionJsonLd = ({ posts, siteInfo }) => {
   // 获取配置
   const link = ensureHttps(siteConfig('LINK') || BLOG.LINK)
   const title = siteConfig('TITLE') || BLOG.TITLE
+  const POST_URL_PREFIX = siteConfig('POST_URL_PREFIX') || BLOG.POST_URL_PREFIX || 'article'
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -308,7 +311,7 @@ export const BlogPostCollectionJsonLd = ({ posts, siteInfo }) => {
       itemListElement: posts.map((post, index) => ({
         '@type': 'ListItem',
         position: index + 1,
-        url: `${link}/${post.slug}`,
+        url: `${link}/${POST_URL_PREFIX}/${post.slug}`,
         name: post.title
       }))
     }
