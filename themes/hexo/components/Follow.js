@@ -10,6 +10,7 @@ const Follow = () => {
   const CONTACT_TWITTER = siteConfig('CONTACT_TWITTER')
   const CONTACT_YOUTUBE = siteConfig('CONTACT_YOUTUBE')
   const CONTACT_TELEGRAM = siteConfig('CONTACT_TELEGRAM')
+  const ENABLE_RSS = siteConfig('ENABLE_RSS')
 
   return (
     <Card>
@@ -38,6 +39,17 @@ const Follow = () => {
               href={CONTACT_YOUTUBE}
               className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition duration-150 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm font-bold'>
               <i className='fab fa-youtube mr-1'></i>YouTube
+            </a>
+          )}
+          
+          {ENABLE_RSS && (
+            <a
+              target='_blank'
+              rel='noreferrer'
+              title={'RSS 订阅'}
+              href={'/feed'}
+              className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition duration-150 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm font-bold'>
+              <i className='fas fa-rss mr-1'></i>RSS
             </a>
           )}
         </div>
