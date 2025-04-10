@@ -47,7 +47,7 @@ const Follow = () => {
               target='_blank'
               rel='noreferrer'
               title={'RSS 订阅'}
-              href={'/feed'}
+              href={'/rss/feed.xml'}
               className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition duration-150 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm font-bold'>
               <i className='fas fa-rss mr-1'></i>RSS
             </a>
