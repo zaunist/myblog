@@ -5,8 +5,6 @@ import { useEffect, useRef, useState } from 'react'
 import CONFIG from '../config'
 import BlogPostCard from './BlogPostCard'
 import BlogPostListEmpty from './BlogPostListEmpty'
-import PostLoading from './PostLoading'
-import useLoading from './useLoading'
 
 /**
  * 博客列表滚动分页
@@ -21,13 +19,10 @@ const BlogPostListScroll = ({
   showSummary = siteConfig('HEXO_POST_LIST_SUMMARY', null, CONFIG),
   siteInfo
 }) => {
-  const { NOTION_CONFIG, onLoading, locale } = useGlobal()
+  const { NOTION_CONFIG, locale } = useGlobal()
   const [page, updatePage] = useState(1)
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
   const postsToShow = getListByPage(posts, page, POSTS_PER_PAGE)
-
-  // 使用自定义Hook来控制加载状态
-  const isLoading = useLoading(posts, 1000)
 
   let hasMore = false
   if (posts) {
@@ -64,16 +59,7 @@ const BlogPostListScroll = ({
   })
 
   const targetRef = useRef(null)
-
-  // 优先使用组件内部的加载状态
-  if (isLoading) {
-    return <PostLoading />
-  }
   
-  // 然后考虑全局加载状态
-  if (onLoading) {
-    return <PostLoading />
-  }
 
   if (!postsToShow || postsToShow.length === 0) {
     return <BlogPostListEmpty currentSearch={currentSearch} />

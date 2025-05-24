@@ -21,7 +21,6 @@ import ButtonRandomPostMini from './components/ButtonRandomPostMini'
 import Card from './components/Card'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import Hero from './components/Hero'
 import PostHero from './components/PostHero'
 import RightFloatArea from './components/RightFloatArea'
 import SearchNav from './components/SearchNav'
@@ -32,8 +31,6 @@ import TocDrawer from './components/TocDrawer'
 import TocDrawerButton from './components/TocDrawerButton'
 import CONFIG from './config'
 import { Style } from './style'
-import PostLoading from './components/PostLoading'
-import useLoading from './components/useLoading'
 
 // 主题全局状态
 const ThemeGlobalHexo = createContext()
@@ -59,10 +56,7 @@ const LayoutBase = props => {
 
   const headerSlot = post ? (
     <PostHero {...props} />
-  ) : router.route === '/' &&
-    siteConfig('HEXO_HOME_BANNER_ENABLE', null, CONFIG) ? (
-    <Hero {...props} />
-  ) : null
+  ) : router.route === '/' 
 
   const tocRef = isBrowser ? document.getElementById('article-wrapper') : null
 
@@ -262,8 +256,6 @@ const LayoutSlug = props => {
   const { onLoading } = useGlobal()
   const waiting404 = siteConfig('POST_WAITING_TIME_FOR_404') * 1000
   
-  // 使用自定义Hook来控制加载状态，减少最小加载时间，避免与路由加载状态重叠太久
-  const isLoading = useLoading(post, 500)
   
   useEffect(() => {
     // 404
@@ -284,10 +276,6 @@ const LayoutSlug = props => {
     }
   }, [post, router, waiting404])
   
-  // 如果正在加载，显示加载组件
-  if (isLoading || onLoading) {
-    return <PostLoading />
-  }
   
   return (
     <>

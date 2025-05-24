@@ -1,6 +1,3 @@
-import LazyImage from '@/components/LazyImage'
-import NotionIcon from '@/components/NotionIcon'
-import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import { formatDateFmt } from '@/lib/utils/formatDate'
 import Link from 'next/link'

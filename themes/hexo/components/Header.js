@@ -11,8 +11,6 @@ import Logo from './Logo'
 import { MenuListTop } from './MenuListTop'
 import SearchButton from './SearchButton'
 import SearchDrawer from './SearchDrawer'
-import SideBar from './SideBar'
-import SideBarDrawer from './SideBarDrawer'
 import TagGroups from './TagGroups'
 
 let windowTop = 0
@@ -220,11 +218,6 @@ const Header = props => {
           </div>
         </div>
       </div>
-
-      {/* 折叠侧边栏 */}
-      <SideBarDrawer isOpen={isOpen} onClose={toggleSideBarClose}>
-        <SideBar {...props} />
-      </SideBarDrawer>
     </div>
   )
 }

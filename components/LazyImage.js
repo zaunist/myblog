@@ -21,6 +21,19 @@ export default function LazyImage({
   onClick,
   style
 }) {
+  if (
+    !width ||
+    width === 'auto' ||
+    typeof width !== 'number' ||
+    !height ||
+    height === 'auto' ||
+    typeof height !== 'number'
+  ) {
+    console.warn(
+      `LazyImage with src "${src}" is missing explicit numeric width or height props, or they are set to 'auto'. This can cause layout shifts. Please provide fixed numeric values for width and height. Received width: ${width}, height: ${height}`
+    )
+  }
+
   const maxWidth = siteConfig('IMAGE_COMPRESS_WIDTH')
   const defaultPlaceholderSrc = siteConfig('IMG_LAZY_LOAD_PLACEHOLDER')
   const imageRef = useRef(null)
