@@ -3,6 +3,7 @@ import BeiAnSite from '@/components/BeiAnSite'
 import PoweredBy from '@/components/PoweredBy'
 import { siteConfig } from '@/lib/config'
 import Link from 'next/link'
+import PrivacyPolicyPopup from '@/components/PrivacyPolicyPopup'; // 新增导入
 
 const Footer = ({ title }) => {
   const d = new Date()
@@ -33,6 +34,7 @@ const Footer = ({ title }) => {
         <PoweredBy className='justify-center' />
       </span>
       <br />
+      <PrivacyPolicyPopup /> {/* 新增组件 */}
     </footer>
   )
 }
