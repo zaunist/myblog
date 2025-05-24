@@ -15,7 +15,7 @@ const Comment = ({ frontMatter, className }) => {
   const [shouldLoad, setShouldLoad] = useState(false)
   const commentRef = useRef(null)
 
-  const COMMENT_UTTERRANCES_REPO = siteConfig('COMMENT_UTTERRANCES_REPO')
+  const COMMENT_GISCUS_REPO = siteConfig('COMMENT_GISCUS_REPO')
 
   useEffect(() => {
     // Check if the component is visible in the viewport
@@ -80,22 +80,19 @@ const Comment = ({ frontMatter, className }) => {
         </div>
       )}
 
-      {shouldLoad && COMMENT_UTTERRANCES_REPO && (
-        <div key='Utterance'>
-          <UtterancesComponent
-            issueTerm={frontMatter.id}
-                className='px-2'
-              />
-        </div>
+      {shouldLoad && COMMENT_GISCUS_REPO && (
+         <div key='Giscus'>
+         <GiscusComponent className='px-2' />
+       </div>
       )}
     </div>
   )
 }
 
 
-const UtterancesComponent = dynamic(
+const GiscusComponent = dynamic(
   () => {
-    return import('@/components/Utterances')
+    return import('@/components/Giscus')
   },
   { ssr: false }
 )
