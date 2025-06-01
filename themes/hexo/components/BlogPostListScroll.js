@@ -21,7 +21,8 @@ const BlogPostListScroll = ({
 }) => {
   const { NOTION_CONFIG, locale } = useGlobal()
   const [page, updatePage] = useState(1)
-  const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
+  // 固定每页显示5篇文章
+  const POSTS_PER_PAGE = 5
   const postsToShow = getListByPage(posts, page, POSTS_PER_PAGE)
 
   let hasMore = false
@@ -35,28 +36,6 @@ const BlogPostListScroll = ({
     updatePage(page + 1)
   }
 
-  // 监听滚动自动分页加载
-  const scrollTrigger = () => {
-    requestAnimationFrame(() => {
-      const scrollS = window.scrollY + window.outerHeight
-      const clientHeight = targetRef
-        ? targetRef.current
-          ? targetRef.current.clientHeight
-          : 0
-        : 0
-      if (scrollS > clientHeight + 100) {
-        handleGetMore()
-      }
-    })
-  }
-
-  // 监听滚动
-  useEffect(() => {
-    window.addEventListener('scroll', scrollTrigger)
-    return () => {
-      window.removeEventListener('scroll', scrollTrigger)
-    }
-  })
 
   const targetRef = useRef(null)
   
@@ -79,14 +58,19 @@ const BlogPostListScroll = ({
         </div>
 
         <div>
-          <div
-            onClick={() => {
-              handleGetMore()
-            }}
-            className='w-full my-4 py-4 text-center cursor-pointer rounded-xl dark:text-gray-200'>
-            {' '}
-            {hasMore ? locale.COMMON.MORE : `${locale.COMMON.NO_MORE}`}{' '}
-          </div>
+          {hasMore ? (
+            <div
+              onClick={() => {
+                handleGetMore()
+              }}
+              className='w-full my-4 py-4 text-center cursor-pointer rounded-xl dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200'>
+              {locale.COMMON.MORE}
+            </div>
+          ) : (
+            <div className='w-full my-4 py-4 text-center rounded-xl dark:text-gray-400'>
+              {locale.COMMON.NO_MORE}
+            </div>
+          )}
         </div>
       </div>
     )

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { siteConfig } from '@/lib/config'
 import Card from './Card'
 
@@ -27,7 +26,7 @@ const Follow = () => {
               title={'Twitter'}
               href={CONTACT_TWITTER}
               className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition duration-150 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm font-bold'>
-              <i className='fab fa-twitter mr-1'></i>Twitter
+              <i className='fab fa-twitter mr-1'></i>X
             </a>
           )}
           
@@ -39,6 +38,17 @@ const Follow = () => {
               href={CONTACT_YOUTUBE}
               className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition duration-150 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm font-bold'>
               <i className='fab fa-youtube mr-1'></i>YouTube
+            </a>
+          )}
+          
+          {CONTACT_TELEGRAM && (
+            <a
+              target='_blank'
+              rel='noreferrer'
+              title={'Telegram'}
+              href={CONTACT_TELEGRAM}
+              className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition duration-150 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm font-bold'>
+              <i className='fab fa-telegram mr-1'></i>Telegram
             </a>
           )}
           
@@ -58,4 +68,4 @@ const Follow = () => {
   )
 }
 
-export default Follow 
+export default Follow
