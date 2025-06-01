@@ -44,5 +44,4 @@ module.exports = {
   // 加载动画相关配置
   LOADING_STYLE: process.env.NEXT_PUBLIC_LOADING_STYLE || 'simple', // 加载动画风格，可选 simple 或 elaborate
   MIN_LOADING_TIME: process.env.NEXT_PUBLIC_MIN_LOADING_TIME || 800, // 最小加载动画显示时间，单位毫秒
-  DISABLE_INITIAL_LOADING: process.env.NEXT_PUBLIC_DISABLE_INITIAL_LOADING || false // 是否禁用初始加载动画
 }

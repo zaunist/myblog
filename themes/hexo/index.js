@@ -6,7 +6,7 @@ import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import { isBrowser } from '@/lib/utils'
 import { Transition } from '@headlessui/react'
-import dynamic from 'next/dynamic'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
@@ -83,6 +83,7 @@ const LayoutBase = props => {
         id='theme-hexo'
         className={`${siteConfig('FONT_STYLE')} dark:bg-black scroll-smooth`}>
         <Style />
+        <SpeedInsights></SpeedInsights>
 
         {/* 顶部导航 */}
         <Header {...props} />

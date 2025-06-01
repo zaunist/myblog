@@ -36,7 +36,6 @@ export const config = {
 const MyApp = ({ Component, pageProps }) => {
   // 获取路由和配置
   const router = useRouter()
-  const disableInitialLoading = siteConfig('DISABLE_INITIAL_LOADING')
   
   // 所有状态和引用放在组件顶部
   const [isLoading, setIsLoading] = useState(false)
