@@ -14,7 +14,7 @@ export const MenuItemDrop = ({ link }) => {
   }
 
   // 如果是主页链接，使用完整域名
-  const href = link?.href === '/' ? 'https://zaunist.com' : link?.href
+  const href = link?.href === '/' ? 'https://dddd.moe' : link?.href
 
   return (
     <div
@@ -48,7 +48,7 @@ export const MenuItemDrop = ({ link }) => {
           className={`${show ? 'visible opacity-100 top-12' : 'invisible opacity-0 top-20'} drop-shadow-md overflow-hidden rounded-md text-black dark:text-white bg-white dark:bg-black transition-all duration-300 z-20 absolute block  `}>
           {link.subMenus.map((sLink, index) => {
             // 如果子菜单是主页链接，使用完整域名
-            const subHref = sLink.href === '/' ? 'https://zaunist.com' : sLink.href
+            const subHref = sLink.href === '/' ? 'https://dddd.moe' : sLink.href
             return (
               <li
                 key={index}

@@ -15,7 +15,7 @@ const BLOG = {
 
   AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || '阿杰鲁', // 您的昵称 例如 tangly1024
   BIO: process.env.NEXT_PUBLIC_BIO || '常叹天赋不如人，实则努力不如人😭', // 作者简介
-  LINK: process.env.NEXT_PUBLIC_LINK || 'https://zaunist.com', // 网站地址
+  LINK: process.env.NEXT_PUBLIC_LINK || 'https://dddd.moe', // 网站地址
   KEYWORDS: process.env.NEXT_PUBLIC_KEYWORD || '阿杰鲁, 博客', // 网站关键词 英文逗号隔开
   BLOG_FAVICON: process.env.NEXT_PUBLIC_FAVICON || '/favicon.svg', // blog favicon 配置, 默认使用 /public/favicon.svg，支持在线图片，如 https://img.imesong.com/favicon.png
   AVATAR: process.env.NEXT_PUBLIC_AVATAR || '/favicon.svg', // 个人头像 默认取public目录下的avatar.png，也可以是网络图片
