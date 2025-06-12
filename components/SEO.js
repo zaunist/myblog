@@ -129,8 +129,8 @@ const SEO = props => {
       
       {/* 添加规范链接，避免重复内容问题 */}
       <link rel='canonical' href={router.asPath === '/' 
-        ? `https://dddd.moe` 
-        : `https://dddd.moe${router.asPath}`} />
+        ? `https://ajie.lu` 
+        : `https://ajie.lu${router.asPath}`} />
 
       {ANALYTICS_BUSUANZI_ENABLE && (
         <meta name='referrer' content='no-referrer-when-downgrade' />

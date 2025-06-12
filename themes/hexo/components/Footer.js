@@ -15,7 +15,7 @@ const Footer = ({ title }) => {
       <span>
         <i className='mx-1 animate-pulse fas fa-headphones' />
         <a
-          href="https://dddd.moe"
+          href="https://ajie.lu"
           className='underline font-bold  dark:text-gray-300 '>
           {siteConfig('AUTHOR')}
         </a>
