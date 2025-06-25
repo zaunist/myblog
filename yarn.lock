@@ -4504,6 +4504,11 @@ util-deprecate@^1.0.1, util-deprecate@^1.0.2:
   resolved "https://registry.npmmirror.com/util-deprecate/-/util-deprecate-1.0.2.tgz"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
 
+vercount-react@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.npmmirror.com/vercount-react/-/vercount-react-0.1.4.tgz#8c720451b639dceeb61047f5a07ac60dbdf98827"
+  integrity sha512-DE4ZeEnGtxmQvd+RuL3aKbnGI2BMSQZpdzH5GQfRKBVj6yuDrJ15Wr7YoxjSWozl8m7cs+arLqBDSoDZ7Fqvjw==
+
 warning@^4.0.0, warning@^4.0.3:
   version "4.0.3"
   resolved "https://registry.npmmirror.com/warning/-/warning-4.0.3.tgz"
