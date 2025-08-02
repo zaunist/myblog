@@ -84,7 +84,11 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true
   },
-  output: process.env.EXPORT ? 'export' : process.env.NEXT_BUILD_STANDALONE === 'true' ? 'standalone' : undefined,
+  output: process.env.EXPORT
+    ? 'export'
+    : process.env.NEXT_BUILD_STANDALONE === 'true'
+      ? 'standalone'
+      : undefined,
   staticPageGenerationTimeout: 120,
   // 多语言， 在export时禁用
   i18n: process.env.EXPORT
@@ -163,6 +167,11 @@ const nextConfig = {
 
         return [
           ...langsRewrites,
+          // 将旧的搜索 URL 重定向到新格式
+          {
+            source: '/search/:keyword',
+            destination: '/search?s=:keyword'
+          },
           // 伪静态重写
           {
             source: '/:path*.html',
@@ -198,7 +207,7 @@ const nextConfig = {
 
     if (!isServer) {
       console.log('[默认主题]', path.resolve(__dirname, 'themes', THEME))
-      
+
       // 处理Node.js核心模块在浏览器环境中的问题
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -218,7 +227,7 @@ const nextConfig = {
         querystring: false
       }
     }
-    
+
     config.resolve.alias['@theme-components'] = path.resolve(
       __dirname,
       'themes',
